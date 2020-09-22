@@ -165,6 +165,8 @@ If you’re not already super familiar with Slack, no worries! Here are a couple
 
 ### What else?
 
-I’m around 💯% sure I’m forgetting or glossing over something important, so please be noisy on Slack as things come up. The mentors and I will do our best to get you unstuck. Also, lean on each other for help as well! Finally, work in the open so everyone can benefit from your questions.
+There’s a good chance (💯%) we’re forgetting or glossing over something important, so please be noisy on Slack as things come up. We will do our best to get you unstuck. Also, lean on each other for help as well! Finally, work in the open so everyone can benefit from your questions.
 
-![gif of a My Little Pony pulling on goggles, with a determined look on their face, saying, “Let’s do this”.](http://giphygifs.s3.amazonaws.com/media/PuWNMebKGIKNG/giphy.gif)
+### Let's Do This!
+
+![Photo of programmer Margaret Hamilton standing next to the navigation software that she and her MIT team produced for the Apollo Project.](./_resources/images/Margaret_Hamilton.gif)
