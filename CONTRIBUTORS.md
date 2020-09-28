@@ -4,4 +4,6 @@
 
 ## Mentors
 
+Ali Lynne Thompson
+
 ## Code of Conduct Contacts
