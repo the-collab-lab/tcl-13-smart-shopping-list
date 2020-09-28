@@ -2,6 +2,8 @@
 
 ## Cohort Participants
 
+Rebecca Bompiani
+
 ## Mentors
 
 Ali Lynne Thompson
