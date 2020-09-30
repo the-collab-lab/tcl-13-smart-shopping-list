@@ -2,12 +2,13 @@
 
 ## Cohort Participants
 
-Rebecca Bompiani
-Rachel Fischoff
-Audra Turuta
+Rebecca Bompiani  
+Rachel Fischoff  
+Audra Turuta  
 
 ## Mentors
 
-Ali Lynne Thompson
+Indira Gutierrez  
+Ali Lynne Thompson  
 
 ## Code of Conduct Contacts
