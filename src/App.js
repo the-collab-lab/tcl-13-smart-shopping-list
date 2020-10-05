@@ -1,16 +1,20 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import logo from './logo.svg';
 import Nav from './components/Nav';
+import ViewList from './components/ViewList';
+import AddItems from './components/AddItems';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>We're working on it</p>
+        <h1>Welcome to Shopping!</h1>
       </header>
+      <Switch>
+        <Route exact path="/view-list" component={ViewList} />
+        <Route path="/add-items" component={AddItems} />
+      </Switch>
       <Nav />
     </div>
   );
