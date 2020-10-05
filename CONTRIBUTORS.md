@@ -3,6 +3,7 @@
 ## Cohort Participants
 
 Rebecca Bompiani
+Audra Turuta 😀
 
 ## Mentors
 
