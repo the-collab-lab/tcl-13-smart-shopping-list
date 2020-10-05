@@ -1,15 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
   return (
     <div>
       <ul>
         <li>
-          <Link to="/view-list">View List</Link>
+          <NavLink
+            to="/view-list"
+            activeStyle={{
+              fontWeight: 'bold',
+            }}
+          >
+            View List
+          </NavLink>
         </li>
         <li>
-          <Link to="/add-items">Add Items</Link>
+          <NavLink
+            to="/add-items"
+            activeStyle={{
+              fontWeight: 'bold',
+            }}
+          >
+            Add Items
+          </NavLink>
         </li>
       </ul>
     </div>
