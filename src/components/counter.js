@@ -12,9 +12,11 @@ export default class Counter extends Component {
   handleChange = (event) => {
     event.preventDefault();
 
-    this.setState((prevState) => ({ counter: prevState.counter++ }));
+    this.setState((prevState) => ({
+      currentCount: prevState.currentCount + 1,
+    }));
 
-    console.log(this.state.counter, 'the current state of the counter');
+    console.log(this.state.currentCount, 'the current state of the counter');
   };
 
   render() {
