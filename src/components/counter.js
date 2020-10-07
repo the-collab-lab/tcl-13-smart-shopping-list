@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import db from '../firebase/firebase';
 
-export default class counter extends Component {
+export default class Counter extends Component {
   constructor() {
     super();
     //create state with a counter set to zero
@@ -20,7 +20,7 @@ export default class counter extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleChange}>count</button>
+        <button onClick={this.handleChange}> count</button>
       </div>
     );
   }
