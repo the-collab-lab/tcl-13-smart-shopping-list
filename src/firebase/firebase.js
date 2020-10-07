@@ -1,6 +1,3 @@
-// import firebase from 'firebase/app';
-// import firestore from 'firebase/firestore'
-
 const firebase = require('firebase/app');
 const firestore = require('firebase/firestore');
 
@@ -29,8 +26,9 @@ db.collection('groceries')
   .then(function () {
     console.log('document successfully written!');
   })
+  // catches & logs any errors
   .catch(function (error) {
-    console.error('error writting document', error);
+    console.error('error writing document', error);
   });
 
 //Reading from DB
@@ -39,7 +37,7 @@ db.collection('groceries')
   .get()
   .then((doc) => {
     const data = doc.data();
-    console.log(data);
+    console.log(data, 'document successfully read!');
   });
 
 module.exports = db;
