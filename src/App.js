@@ -1,22 +1,22 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+
 import Nav from './components/Nav';
-import ViewList from './components/ViewList';
-import AddItems from './components/AddItems';
+import Router from './components/Router';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to your Shopping List!</h1>
-      </header>
-      <Switch>
-        <Route exact path="/view-list" component={ViewList} />
-        <Route path="/add-items" component={AddItems} />
-      </Switch>
-      <Nav />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <h1>Welcome to your Shopping List!</h1>
+        </header>
+        <Router />
+        <Nav />
+      </div>
+    </BrowserRouter>
   );
 }
 

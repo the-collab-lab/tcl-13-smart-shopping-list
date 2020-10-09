@@ -1,13 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import App from '../App';
+import { Switch, Route } from 'react-router-dom';
+import ViewList from './ViewList';
+import AddItems from './AddItems';
+import NoMatch from './NoMatch';
 
 const Router = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" component={App} />
-    </Switch>
-  </BrowserRouter>
+  <Switch>
+    <Route exact path="/" />
+    <Route exact path="/view-list" component={ViewList} />
+    <Route exact path="/add-items" component={AddItems} />
+    <Route component={NoMatch} />
+  </Switch>
 );
 
 export default Router;
