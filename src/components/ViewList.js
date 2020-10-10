@@ -1,12 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const ViewList = () => {
   return (
-    <Fragment>
-      <div>
-        <h1>View List</h1>
-      </div>
-    </Fragment>
+    <div>
+      <h1>View List</h1>
+    </div>
   );
 };
 
