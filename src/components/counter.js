@@ -15,14 +15,17 @@ export default function Counter() {
       .then((doc) => {
         setCurrentCount(doc.data().number);
       });
-  });
+  }, []);
 
   const handleUpdate = (e) => {
     db.collection('counter')
       .doc('count')
-      .set({
-        number: currentCount,
-      })
+      .set(
+        {
+          number: currentCount,
+        },
+        console.log('line 25', currentCount),
+      )
       .then(function () {
         console.log('updated count!');
       })
@@ -48,6 +51,7 @@ export default function Counter() {
       <button
         onClick={() => {
           setCurrentCount(currentCount + 1);
+          handleUpdate();
           console.log(`current count is ${currentCount}`);
         }}
       >
