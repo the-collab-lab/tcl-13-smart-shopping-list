@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import db from '../firebase/firebase';
 
-export default class Counter extends Component {
-  constructor() {
-    super();
-    //create state with a counter set to zero
-    this.state = {
-      currentCount: 0,
-    };
-  }
+export default function Counter() {
+  //Setting state to zero
+  // const dbCount = db.collection('counter').doc('count').get().then((doc) => { const data = doc.data() })
 
-  //event handler function that adds count to state when the button is clicked, and saves count to databse
-  handleChange = (event) => {
-    event.preventDefault();
+  const [currentCount, setCurrentCount] = useState();
 
-    this.setState((prevState) => ({
-      currentCount: prevState.currentCount + 1,
-    }));
+  //Writing to DB
+  useEffect(() => {
+    db.collection('counter')
+      .doc('count')
+      .get()
+      .then((doc) => {
+        setCurrentCount(doc.data().number);
+      });
+  });
 
-    console.log(this.state.currentCount, 'the current state of the counter');
-
-    //Writing to DB
+  const handleUpdate = (e) => {
     db.collection('counter')
       .doc('count')
       .set({
-        number: this.state.currentCount,
+        number: currentCount,
       })
       .then(function () {
         console.log('updated count!');
@@ -36,7 +33,7 @@ export default class Counter extends Component {
   };
 
   // event handler to read current count from database
-  handleGet = (e) => {
+  const handleGet = (e) => {
     db.collection('counter')
       .doc('count')
       .get()
@@ -46,13 +43,18 @@ export default class Counter extends Component {
       });
   };
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleChange}>Count</button>
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setCurrentCount(currentCount + 1);
+          console.log(`current count is ${currentCount}`);
+        }}
+      >
+        Count
+      </button>
 
-        <button onClick={this.handleGet}>Get Count</button>
-      </div>
-    );
-  }
+      <button onClick={handleGet}>Get Count</button>
+    </div>
+  );
 }
