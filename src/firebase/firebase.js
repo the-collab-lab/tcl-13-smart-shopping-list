@@ -1,8 +1,8 @@
 const firebase = require('firebase/app');
-const firestore = require('firebase/firestore');
+require('firebase/firestore');
 
 //CONFIG
-const firebaseApp = firebase.initializeApp({
+const config = {
   apiKey: 'AIzaSyCW_4CKCfT7pOFVscvM-2YE5iSViS9RaQo',
   authDomain: 'tcl-13-smart-shopping-list.firebaseapp.com',
   databaseURL: 'https://tcl-13-smart-shopping-list.firebaseio.com',
@@ -10,10 +10,13 @@ const firebaseApp = firebase.initializeApp({
   storageBucket: 'tcl-13-smart-shopping-list.appspot.com',
   messagingSenderId: '1010512914119',
   appId: '1:1010512914119:web:6e5b311a81fe89114f00e2',
-});
+};
+
+//Initialize App
+firebase.initializeApp(config);
 
 //Instantiate DB
-const db = firebaseApp.firestore();
+const db = firebase.firestore();
 
 //Writing to DB
 db.collection('groceries')

@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import db from '../firebase/firebase';
 
-export default function Counter() {
-  //Setting state to zero
-  // const dbCount = db.collection('counter').doc('count').get().then((doc) => { const data = doc.data() })
+const firebase = require('firebase/app');
+require('firebase/firestore');
 
+//Creates the functional component Counter
+export default function Counter() {
   const [currentCount, setCurrentCount] = useState();
 
-  //Writing to DB
+  //references the doc we are updating and changing
+  let counterRef = db.collection('counter').doc('count');
+
+  //gets currentCount from database count number when mounting
+  //sets state to db currentCount
   useEffect(() => {
-    db.collection('counter')
-      .doc('count')
+    counterRef
       .get()
       .then((doc) => {
         setCurrentCount(doc.data().number);
+      })
+      .catch(function (error) {
+        console.error('error connecting to database', error);
       });
-  }, []);
+  }, [counterRef]);
 
-  const handleUpdate = (e) => {
-    db.collection('counter')
-      .doc('count')
-      .set(
-        {
-          number: currentCount,
-        },
-        console.log('line 25', currentCount),
-      )
+  //handler function for "Count +" button which updates the database
+  //and then updates the state
+  const handleIncrement = () => {
+    counterRef
+      .update({
+        number: firebase.firestore.FieldValue.increment(1),
+      })
       .then(function () {
-        console.log('updated count!');
+        setCurrentCount(currentCount + 1);
       })
       // catches & logs any errors
       .catch(function (error) {
@@ -35,30 +40,40 @@ export default function Counter() {
       });
   };
 
-  // event handler to read current count from database
-  const handleGet = (e) => {
+  //handler function for "Count -" button which updates the database
+  //and then updates the state
+  const handleDecrement = () => {
+    counterRef
+      .update({
+        number: firebase.firestore.FieldValue.increment(-1),
+      })
+      .then(function () {
+        setCurrentCount(currentCount - 1);
+      })
+      // catches & logs any errors
+      .catch(function (error) {
+        console.error('error updating count!', error);
+      });
+  };
+
+  // handler function to read and log current count from database
+  const handleGet = () => {
     db.collection('counter')
       .doc('count')
       .get()
       .then((doc) => {
         const data = doc.data();
-        console.log('current count in database is', data);
+        console.log('current count in database is', data.number);
       });
   };
 
   return (
     <div>
-      <button
-        onClick={() => {
-          setCurrentCount(currentCount + 1);
-          handleUpdate();
-          console.log(`current count is ${currentCount}`);
-        }}
-      >
-        Count
-      </button>
-
-      <button onClick={handleGet}>Get Count</button>
+      The current count is {currentCount}
+      <br />
+      <button onClick={handleIncrement}>Count + </button>
+      <button onClick={handleDecrement}>Count - </button>
+      <button onClick={handleGet}>Get Count from db</button>
     </div>
   );
 }
