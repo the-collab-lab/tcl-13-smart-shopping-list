@@ -2,10 +2,14 @@ import React from 'react';
 import db from '../firebase/firebase';
 
 const AddItems = () => {
+  const handleSubmit = () => {
+    //put function here
+  };
+
   return (
     <div>
       <h1>Add your items!</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="item-name"> Item Name:</label>
         <input type="text" />
         <br />
