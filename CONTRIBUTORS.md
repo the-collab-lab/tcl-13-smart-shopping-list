@@ -4,7 +4,8 @@
 
 Rebecca Bompiani  
 Rachel Fischoff  
-Audra Turuta  
+Audra Turuta 
+Shayne Sebro 
 
 ## Mentors
 
