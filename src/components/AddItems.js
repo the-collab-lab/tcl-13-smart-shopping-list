@@ -3,6 +3,7 @@ import db from '../firebase/firebase';
 
 const firebase = require('firebase/app');
 require('firebase/firestore');
+
 const userToken = 'token';
 
 const AddItems = () => {
@@ -15,7 +16,6 @@ const AddItems = () => {
   });
 
   //references the doc we are updating and changing
-  //let usersRef = db.collection('users').doc(userToken);
   const itemsRef = db.collection('items');
 
   // handle change of each form input, set state
