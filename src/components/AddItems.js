@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import db from '../firebase/firebase';
 
 const AddItems = () => {
+  const [formData, setFormData] = useState({});
+
   const handleSubmit = () => {
     //put function here
   };
@@ -14,11 +16,11 @@ const AddItems = () => {
         <input type="text" />
         <br />
         <br />
-        <fieldset>
+        <fieldset className="fieldset-1">
           <legend>Time Frame</legend>
           <label htmlFor="time-frame"> How soon will you buy this again?</label>
           <br />
-          <input type="radio" id="Soon" name="time-frame" checked />
+          <input type="radio" id="Soon" name="time-frame" defaultChecked />
           <label htmlFor="soon"> Soon</label>
           <br />
           <input type="radio" id="Kinda Soon" name="time-frame" />
