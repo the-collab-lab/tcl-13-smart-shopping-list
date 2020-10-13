@@ -3,8 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import Router from './components/Router';
-import Counter from '../src/components/counter';
-import Welcome from '../src/components/Welcome';
 
 function App() {
   return (
