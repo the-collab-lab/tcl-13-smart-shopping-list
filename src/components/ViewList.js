@@ -12,30 +12,36 @@ const ViewList = () => {
   //gets currentCount from database count number when mounting
   //sets state to db currentCount
   useEffect(() => {
-    let query = itemsRef
+    itemsRef
       .where('userToken', '==', 'token')
       .get()
       .then(function (querySnapshot) {
+        let tempItems = [];
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, ' => ', doc.data());
-          setItems([...items, doc.data().itemName]);
+          tempItems.push(doc.data());
         });
+        setItems(tempItems);
+      })
+      .then(function () {
+        console.log(items);
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
 
-    setItems(query);
+    // setItems(query);
   }, []);
 
   return (
     <div>
       <h1>View List</h1>
-      {console.log(items)}
-      <ul>{/* {items.map(
-        item=><li>{item}</li>
-      )} */}</ul>
+      <ul>
+        {items.map((element, index) => (
+          <li key={index}> {element.itemName} </li>
+        ))}
+      </ul>
     </div>
   );
 };
