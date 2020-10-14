@@ -6,10 +6,9 @@ export default function Welcome() {
     <div>
       <h1>Welcome to your Smart Shopping List!</h1>
 
-      {/* For accessibility reasons (FAR), is this a button or a link that should be styled as a button? */}
-      <button>
-        <Link to="/new-list">Create a new List</Link>
-      </button>
+      {/* For accessibility reasons this is a link, but can be styled as button */}
+
+      <Link to="/new-list">Create a new List</Link>
 
       <p>- or -</p>
 
