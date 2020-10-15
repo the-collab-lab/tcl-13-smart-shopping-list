@@ -47,7 +47,10 @@ const AddItems = () => {
     <div>
       <h1>Add your items!</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="item-name"> Item Name:</label>
+        <label className="label-1" htmlFor="item-name">
+          {' '}
+          Item Name:
+        </label>
         <input
           type="text"
           placeholder="Add your item here"
