@@ -24,14 +24,9 @@ const ViewList = () => {
         });
         setItems(tempItems);
       })
-      .then(function () {
-        console.log(items);
-      })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
-
-    // setItems(query);
   }, []);
 
   return (

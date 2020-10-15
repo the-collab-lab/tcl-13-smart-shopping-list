@@ -27,7 +27,7 @@ db.collection('groceries')
     quantity: 0,
   })
   .then(function () {
-    console.log('document successfully written!');
+    // console.log('document successfully written!');
   })
   // catches & logs any errors
   .catch(function (error) {
@@ -40,7 +40,7 @@ db.collection('groceries')
   .get()
   .then((doc) => {
     const data = doc.data();
-    console.log(data, 'document successfully read!');
+    // console.log(data, 'document successfully read!');
   });
 
 module.exports = db;

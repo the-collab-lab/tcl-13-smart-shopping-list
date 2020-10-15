@@ -3,10 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import Router from './components/Router';
-import Counter from '../src/components/counter';
 
 function App() {
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -15,7 +13,6 @@ function App() {
         </header>
         <Router />
         <Nav />
-        <Counter />
       </div>
     </BrowserRouter>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import db from '../firebase/firebase';
+import './AddItems.css';
 
 const firebase = require('firebase/app');
 require('firebase/firestore');
@@ -34,6 +35,7 @@ const AddItems = () => {
       .add(formData)
       .then(function () {
         console.log('submitted!');
+        alert('submitted');
       })
       // catches & logs any errors
       .catch(function (error) {
@@ -55,7 +57,7 @@ const AddItems = () => {
         />
         <br />
         <br />
-        <fieldset className="fieldset-1">
+        <fieldset className="fieldset">
           <legend>Time Frame</legend>
           <label htmlFor="timeFrame"> How soon will you buy this again?</label>
           <br />
@@ -88,7 +90,8 @@ const AddItems = () => {
           <label htmlFor="not-soon">Not Soon</label>
           <br />
         </fieldset>
-        <input type="submit" value="Add Item" />
+        <br />
+        <input type="submit" value="Add Item" className="input-1" />
       </form>
     </div>
   );
