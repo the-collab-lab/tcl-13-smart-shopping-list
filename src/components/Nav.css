@@ -1,7 +1,7 @@
 nav {
   position: fixed;
-  bottom: 200px;
   width: 100%;
+  bottom: 0px;
 }
 
 nav > div {
