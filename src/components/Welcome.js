@@ -14,7 +14,6 @@ export default function Welcome() {
 
       <p>Join an existing shopping list by entering a three work token</p>
 
-      {/* FAR - Should this be a fieldset, or is it okay because it's only one input/submit button? */}
       <label htmlFor="tokenField"> Share Token </label>
       <input
         id="tokenField"
