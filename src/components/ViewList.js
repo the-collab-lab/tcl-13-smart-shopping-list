@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import db from '../firebase/firebase';
-const firebase = require('firebase/app');
-require('firebase/firestore');
+import { db } from '../lib/firebase';
 
 const ViewList = () => {
   const [items, setItems] = useState([]);

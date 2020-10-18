@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import db from '../firebase/firebase';
+import { db } from '../lib/firebase';
 import './AddItems.css';
-
-const firebase = require('firebase/app');
-require('firebase/firestore');
 
 const userToken = 'token';
 
@@ -39,7 +36,7 @@ const AddItems = () => {
       })
       // catches & logs any errors
       .catch(function (error) {
-        console.error('error updating count!', error);
+        console.error('error adding item to the database!', error);
       });
   };
 

@@ -7,7 +7,7 @@ export default function NewList() {
     // Saving randomly generated token to a variable
     const token = getToken();
     // Sending the token variable to local storage for use
-    localStorage.setItem('token', token);
+    localStorage.setItem('tcl13-token', token);
   };
 
   return (
