@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { db } from '../lib/firebase';
 import './AddItems.css';
 
-//token to represent localStorage value
-const userToken = localStorage.getItem('tcl13-token');
-
 const AddItems = () => {
+  //token to represent localStorage value
+  const userToken = localStorage.getItem('tcl13-token');
+
   const [formData, setFormData] = useState({
     itemName: '',
     timeFrame: 7,
