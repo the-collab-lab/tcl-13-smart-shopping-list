@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import './Nav.css';
+
 const Nav = () => {
   return (
     <div>
-      <ul>
-        <li>
+      <nav>
+        <div>
           <NavLink
             to="/view-list"
             activeStyle={{
@@ -14,8 +16,8 @@ const Nav = () => {
           >
             View List
           </NavLink>
-        </li>
-        <li>
+        </div>
+        <div>
           <NavLink
             to="/add-items"
             activeStyle={{
@@ -24,8 +26,8 @@ const Nav = () => {
           >
             Add Items
           </NavLink>
-        </li>
-      </ul>
+        </div>
+      </nav>
     </div>
   );
 };

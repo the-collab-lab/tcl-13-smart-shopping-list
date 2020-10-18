@@ -1,0 +1,10 @@
+nav {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+}
+
+nav > div {
+  display: inline-block;
+  padding: 8px;
+}

@@ -1,0 +1,12 @@
+.fieldset {
+  display: inline-block;
+}
+
+.input-1 {
+  padding: 8px;
+  margin-top: 16px;
+}
+
+.label-1 {
+  display: block;
+}
