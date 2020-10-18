@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { db } from '../lib/firebase';
 import './AddItems.css';
 
-const userToken = 'token';
-
 const AddItems = () => {
+  //token to represent localStorage value
+  const userToken = localStorage.getItem('tcl13-token');
+
   const [formData, setFormData] = useState({
     itemName: '',
     timeFrame: 7,

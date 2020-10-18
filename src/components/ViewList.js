@@ -7,11 +7,14 @@ const ViewList = () => {
   //references the doc we are updating and changing
   let itemsRef = db.collection('items');
 
+  //variable for localStorage token
+  const localStorageToken = localStorage.getItem('tcl13-token');
+
   //gets currentCount from database count number when mounting
   //sets state to db currentCount
   useEffect(() => {
     itemsRef
-      .where('userToken', '==', 'token')
+      .where('userToken', '==', localStorageToken)
       .get()
       .then(function (querySnapshot) {
         let tempItems = [];
