@@ -11,6 +11,7 @@ const ViewList = () => {
   //sets state to db currentCount
   useEffect(() => {
     itemsRef
+      //TODO: change  'token' to localstorage
       .where('userToken', '==', 'token')
       .get()
       .then(function (querySnapshot) {

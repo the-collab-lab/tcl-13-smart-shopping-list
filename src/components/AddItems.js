@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../lib/firebase';
 import './AddItems.css';
 
+//TODO: change token to represent localstorage value
 const userToken = 'token';
 
 const AddItems = () => {
