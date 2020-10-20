@@ -7,23 +7,28 @@ export default function Welcome() {
 
   let itemsRef = db.collection('items');
 
-  // Handler function for setting the User Input Token in state
+  // Handler function for setting the User Input Token state based on user input
   const handleChange = (event) => {
     event.preventDefault();
     setUserInputToken(event.target.value);
-    console.log('userInputToken');
   };
 
-  // const checkToken = () => {
-  //   const token = localStorage.getItem('tcl13-token');
-  //   if (token !== null) {
-  //     alert('Your list coming up!');
-  //     return true;
-  //   } else {
-  //     alert(`You don't have a list!`);
-  //     return false;
-  //   }
-  // };
+  const handleJoinList = (event) => {
+    event.preventDefault();
+
+    itemsRef
+      .where('userToken', '==', userInputToken)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          console.log(doc.id, ' => ', doc.data());
+        });
+        localStorage.setItem('tcl13-token', userInputToken);
+      })
+      .catch(function (error) {
+        console.log('User Token Does not exist', error);
+      });
+  };
 
   return (
     <div>
@@ -35,18 +40,23 @@ export default function Welcome() {
 
       <p>- or -</p>
 
-      <p>Join an existing shopping list by entering a three work token</p>
+      <p>Join an existing shopping list by entering a three word token</p>
 
-      <label htmlFor="tokenField"> Share Token </label>
-      <input
-        id="tokenField"
-        placeholder="three word token"
-        type="text"
-        aria-label="Enter your three word token"
-        value={userInputToken}
-        onChange={handleChange}
-      ></input>
-      <button>Join an existing list</button>
+      <form onSubmit={handleJoinList}>
+        <label htmlFor="tokenField"> Share Token </label>
+        <input
+          id="tokenField"
+          placeholder="three word token"
+          type="text"
+          aria-label="Enter your three word token"
+          value={userInputToken}
+          onChange={handleChange}
+        />
+
+        <input type="submit" value="Join Existing List" />
+      </form>
     </div>
   );
 }
+
+// Accessibility input labelling for buttons
