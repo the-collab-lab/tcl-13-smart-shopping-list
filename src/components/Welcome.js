@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { db } from '../lib/firebase';
 
 export default function Welcome() {
+  const [userInputToken, setUserInputToken] = useState(' ');
+
+  let itemsRef = db.collection('items');
+
+  // Handler function for setting the User Input Token in state
+  const handleChange = (event) => {
+    event.preventDefault();
+    setUserInputToken(event.target.value);
+    console.log('userInputToken');
+  };
+
+  // const checkToken = () => {
+  //   const token = localStorage.getItem('tcl13-token');
+  //   if (token !== null) {
+  //     alert('Your list coming up!');
+  //     return true;
+  //   } else {
+  //     alert(`You don't have a list!`);
+  //     return false;
+  //   }
+  // };
+
   return (
     <div>
       <h1>Welcome to your Smart Shopping List!</h1>
@@ -20,6 +43,8 @@ export default function Welcome() {
         placeholder="three word token"
         type="text"
         aria-label="Enter your three word token"
+        value={userInputToken}
+        onChange={handleChange}
       ></input>
       <button>Join an existing list</button>
     </div>
