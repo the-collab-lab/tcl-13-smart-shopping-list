@@ -6,11 +6,32 @@ import NoMatch from './NoMatch';
 import NewList from './NewList';
 import Welcome from './Welcome';
 
-const Router = () => (
+const Router = (props) => (
   <Switch>
     <Route exact path="/" component={Welcome} />
-    <Route exact path="/view-list" component={ViewList} />
-    <Route exact path="/add-items" component={AddItems} />
+    <Route
+      exact
+      path="/view-list"
+      component={() => (
+        <ViewList
+          token={props.token}
+          itemsRef={props.itemsRef}
+          userList={props.userList}
+        />
+      )}
+    />
+    <Route
+      exact
+      path="/add-items"
+      component={() => (
+        <AddItems
+          token={props.token}
+          itemsRef={props.itemsRef}
+          userList={props.userList}
+          itemAddedHandler={props.itemAddedHandler}
+        />
+      )}
+    />
     <Route exact path="/new-list" component={NewList} />
     <Route component={NoMatch} />
   </Switch>

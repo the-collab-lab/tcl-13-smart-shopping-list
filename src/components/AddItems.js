@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import { db } from '../lib/firebase';
 import './AddItems.css';
 
-const AddItems = () => {
-  //token to represent localStorage value
-  const userToken = localStorage.getItem('tcl13-token');
+const AddItems = (props) => {
+  const itemsRef = props.itemsRef;
 
   const [formData, setFormData] = useState({
     itemName: '',
     timeFrame: 7,
     lastPurchased: null,
-    userToken: userToken,
+    userToken: props.token,
     dateCreated: new Date(),
   });
-
-  //references the doc we are updating and changing
-  const itemsRef = db.collection('items');
 
   // handle change of each form input, set state
   const updateInput = (e) => {
@@ -25,20 +20,36 @@ const AddItems = () => {
     });
   };
 
+  // function to compare new entry with existing entries
+  const compareItems = (currentItem) => {
+    const matches = props.userList.filter(
+      (item) =>
+        item.itemName.replace(/[^A-Z0-9]+/gi, '').toLowerCase() ==
+        currentItem.replace(/[^A-Z0-9]+/gi, '').toLowerCase(),
+    );
+    console.log(matches);
+    return matches.length < 1;
+  };
+
   // submits state to database
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    itemsRef
-      .add(formData)
-      .then(function () {
-        console.log('submitted!');
-        alert('submitted');
-      })
-      // catches & logs any errors
-      .catch(function (error) {
-        console.error('error adding item to the database!', error);
-      });
+    if (compareItems(formData.itemName)) {
+      itemsRef
+        .add(formData)
+        .then(function () {
+          props.itemAddedHandler(formData);
+          console.log('submitted!');
+          alert('submitted');
+        })
+        // catches & logs any errors
+        .catch(function (error) {
+          console.error('error adding item to the database!', error);
+        });
+    } else {
+      alert('this item already exists in the database!');
+    }
   };
 
   return (

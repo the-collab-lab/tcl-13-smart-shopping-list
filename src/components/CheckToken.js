@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default function CheckToken() {
+export default function CheckToken(props) {
   let history = useHistory();
   const push = history.push;
 
-  const checkToken = () => {
-    const token = localStorage.getItem('tcl13-token');
+  const checkToken = (token) => {
     if (token !== null) {
       alert('Your list coming up!');
       return true;
@@ -17,7 +16,7 @@ export default function CheckToken() {
   };
 
   useEffect(() => {
-    let checkingToken = checkToken();
+    let checkingToken = checkToken(props.token);
     if (checkingToken === true) {
       push('/view-list');
     } else {
