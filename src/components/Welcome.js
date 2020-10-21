@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { db } from '../lib/firebase';
 
 export default function Welcome() {
-  const [userInputToken, setUserInputToken] = useState(' ');
+  const [userInputToken, setUserInputToken] = useState('');
 
+  //references the collection where the items are stored
   let itemsRef = db.collection('items');
 
   // Handler function for setting the User Input Token state based on user input
@@ -13,6 +14,7 @@ export default function Welcome() {
     setUserInputToken(event.target.value);
   };
 
+  //Checks to see if userInputToken exists in db and adds user to existing list
   const handleJoinList = (event) => {
     event.preventDefault();
 
@@ -20,10 +22,17 @@ export default function Welcome() {
       .where('userToken', '==', userInputToken)
       .get()
       .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          console.log(doc.id, ' => ', doc.data());
-        });
-        localStorage.setItem('tcl13-token', userInputToken);
+        // if document is empty/ userToken != userInputToken
+        //console log error message
+        if (querySnapshot.empty) {
+          console.log('User Token Does not Exist');
+          //if userInputToken exists - set it so localStorage & console log items
+        } else {
+          localStorage.setItem('tcl13-token', userInputToken);
+          querySnapshot.forEach(function (doc) {
+            console.log(doc.id, ' => ', doc.data());
+          });
+        }
       })
       .catch(function (error) {
         console.log('User Token Does not exist', error);
@@ -52,7 +61,6 @@ export default function Welcome() {
           value={userInputToken}
           onChange={handleChange}
         />
-
         <input type="submit" value="Join Existing List" />
       </form>
     </div>
