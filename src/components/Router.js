@@ -32,7 +32,13 @@ const Router = (props) => (
         />
       )}
     />
-    <Route exact path="/new-list" component={NewList} />
+    <Route
+      exact
+      path="/new-list"
+      component={() => (
+        <NewList tokenCreatedHandler={props.tokenCreatedHandler} />
+      )}
+    />
     <Route component={NoMatch} />
   </Switch>
 );

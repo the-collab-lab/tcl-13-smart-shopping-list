@@ -6,7 +6,7 @@ export default function CheckToken(props) {
   const push = history.push;
 
   const checkToken = (token) => {
-    if (token !== null) {
+    if (token != null) {
       alert('Your list coming up!');
       return true;
     } else {

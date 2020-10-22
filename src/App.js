@@ -41,6 +41,10 @@ function App() {
     setUserList([...userList, newItem]);
   };
 
+  const tokenCreatedHandler = (newToken) => {
+    setToken(newToken);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -53,6 +57,7 @@ function App() {
           itemsRef={itemsRef}
           userList={userList}
           itemAddedHandler={itemAddedHandler}
+          tokenCreatedHandler={tokenCreatedHandler}
         />
         <Nav />
       </div>
