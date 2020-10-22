@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import ViewList from './ViewList';
 import AddItems from './AddItems';
 import NoMatch from './NoMatch';
@@ -8,7 +8,9 @@ import Welcome from './Welcome';
 
 const Router = (props) => (
   <Switch>
-    <Route exact path="/" component={Welcome} />
+    <Route exact path="/">
+      {props.token ? <Redirect to="/view-list" /> : <Welcome />}
+    </Route>
     <Route
       exact
       path="/view-list"
@@ -32,13 +34,13 @@ const Router = (props) => (
         />
       )}
     />
-    <Route
-      exact
-      path="/new-list"
-      component={() => (
+    <Route exact path="/new-list">
+      {props.token ? (
+        <Redirect to="/view-list" />
+      ) : (
         <NewList tokenCreatedHandler={props.tokenCreatedHandler} />
       )}
-    />
+    </Route>
     <Route component={NoMatch} />
   </Switch>
 );

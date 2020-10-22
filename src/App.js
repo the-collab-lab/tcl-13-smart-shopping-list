@@ -3,11 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import Router from './components/Router';
-import CheckToken from './components/CheckToken';
 import { db } from './lib/firebase';
 
 function App() {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(null);
   const [userList, setUserList] = useState();
 
   //references the doc we are updating and changing
@@ -15,13 +14,9 @@ function App() {
 
   // on component load...
   useEffect(() => {
-    // get user token and set token state
-    const tempToken = localStorage.getItem('tcl13-token');
-    setToken(tempToken);
-
     // pull user list items from the database, set to state
     itemsRef
-      .where('userToken', '==', tempToken)
+      .where('userToken', '==', token)
       .get()
       .then(function (querySnapshot) {
         let tempItems = [];
@@ -35,6 +30,12 @@ function App() {
       .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
+  }, [token]);
+
+  useEffect(() => {
+    // get user token and set token state
+    const tempToken = localStorage.getItem('tcl13-token');
+    setToken(tempToken);
   }, []);
 
   const itemAddedHandler = (newItem) => {
@@ -51,7 +52,6 @@ function App() {
         <header className="App-header">
           <h1>Welcome to your Shopping List!</h1>
         </header>
-        <CheckToken token={token} />
         <Router
           token={token}
           itemsRef={itemsRef}
