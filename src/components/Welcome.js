@@ -20,13 +20,15 @@ export default function Welcome() {
 
     itemsRef
       .where('userToken', '==', userInputToken)
+      .limit(1)
       .get()
       .then(function (querySnapshot) {
         // if document is empty/ userToken != userInputToken
         //console log error message
         if (querySnapshot.empty) {
-          console.log('User Token Does not Exist');
-          alert('User Token Does Bot Exist. Try Again');
+          console.log('User Token Does Not Exist');
+          alert('User Token Does Not Exist. Try Again');
+
           //if userInputToken exists - set it so localStorage & console log items
         } else {
           localStorage.setItem('tcl13-token', userInputToken);
@@ -36,7 +38,7 @@ export default function Welcome() {
         }
       })
       .catch(function (error) {
-        console.log('User Token Does not exist', error);
+        console.log('Error getting documents', error);
       });
   };
 
@@ -62,7 +64,7 @@ export default function Welcome() {
           value={userInputToken}
           onChange={handleChange}
         />
-        <input type="submit" value="Join Existing List" />
+        <button type="submit"> Join An Existing List! </button>
       </form>
     </div>
   );
