@@ -12,16 +12,20 @@ function App() {
   //references the doc we are updating and changing
   const itemsRef = db.collection('items');
 
-  // on component load...
+  // ON APP LOAD ---> get user token and set token state
   useEffect(() => {
-    // pull user list items from the database, set to state
+    const tempToken = localStorage.getItem('tcl13-token');
+    setToken(tempToken);
+  }, []);
+
+  // WHEN TOKEN IS SET/UPDATED ---> pull user list items from the database, set to state
+  useEffect(() => {
     itemsRef
       .where('userToken', '==', token)
       .get()
       .then(function (querySnapshot) {
         let tempItems = [];
         querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, ' => ', doc.data());
           tempItems.push(doc.data());
         });
@@ -32,16 +36,12 @@ function App() {
       });
   }, [token]);
 
-  useEffect(() => {
-    // get user token and set token state
-    const tempToken = localStorage.getItem('tcl13-token');
-    setToken(tempToken);
-  }, []);
-
+  // ADD ITEMS - pass this method to nested components to allow updating of item list
   const itemAddedHandler = (newItem) => {
     setUserList([...userList, newItem]);
   };
 
+  // SET TOKEN - pass this method to nested components to set token to state
   const tokenCreatedHandler = (newToken) => {
     setToken(newToken);
   };
