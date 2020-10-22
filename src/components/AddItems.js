@@ -40,7 +40,7 @@ const AddItems = (props) => {
         .add(formData)
         .then(function () {
           props.itemAddedHandler(formData);
-          console.log('submitted!');
+          setFormData({ itemName: '' });
           alert('submitted');
         })
         // catches & logs any errors
