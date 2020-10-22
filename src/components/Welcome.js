@@ -25,8 +25,8 @@ export default function Welcome() {
         // if document is empty/ userToken != userInputToken
         //console log error message
         if (querySnapshot.empty) {
-          console.log('User Token Does not Exist');
-          alert('User Token Does Bot Exist. Try Again');
+          console.log('User Token Does Not Exist');
+          alert('User Token Does Not Exist. Please Try Again');
           //if userInputToken exists - set it so localStorage & console log items
         } else {
           localStorage.setItem('tcl13-token', userInputToken);
