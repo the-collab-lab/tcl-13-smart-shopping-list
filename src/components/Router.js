@@ -8,6 +8,12 @@ import Welcome from './Welcome';
 
 const Router = (props) => (
   <Switch>
+    {/*CONTEXT ERROR - need to pass token context to reroutes... 
+      1. import useContext from react
+      2. import ListContext component from context folder
+      3. set ListContext to a variable
+      4. check context for token & redirect accordingly
+    */}
     <Route exact path="/">
       {props.token ? <Redirect to="/view-list" /> : <Welcome />}
     </Route>

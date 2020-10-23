@@ -4,6 +4,7 @@ import './AddItems.css';
 
 const AddItems = (props) => {
   const listContext = useContext(ListContext);
+  console.log(listContext.token);
 
   const itemsRef = listContext.itemsRef;
 
@@ -42,6 +43,10 @@ const AddItems = (props) => {
       itemsRef
         .add(formData)
         .then(function () {
+          /*CONTEXT ERROR - this method to set userList stat should be replaced... 
+            1. Is there a method to set context state from here?
+            2. can the database call in the ListContext component be updated to a realtime listener?
+          */
           props.itemAddedHandler(formData);
           setFormData({ itemName: '' });
           alert('submitted');

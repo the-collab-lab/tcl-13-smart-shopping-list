@@ -6,6 +6,11 @@ import Router from './components/Router';
 import ListContextProvider from './context/ListContext';
 
 function App() {
+  /*CONTEXT ERROR - these handlers should be removed... 
+    1. delete handler definitions
+    2. remove all references to them passed as props
+  */
+
   // ADD ITEMS - pass this method to nested components to allow updating of item list
   const itemAddedHandler = (newItem) => {
     // setUserList([...userList, newItem]);

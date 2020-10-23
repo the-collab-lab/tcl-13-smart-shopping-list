@@ -16,6 +16,13 @@ const ListContextProvider = (props) => {
   }, []);
 
   // WHEN TOKEN IS SET/UPDATED ---> pull user list items from the database, set to state
+
+  /*CONTEXT ERROR - this database call is only happening on context mount, 
+    but should happen each time an item is added to the database
+      1. should this be updated to firebase's on snapshot?
+      OR
+      2. is there a way to set context state from the consumer?
+    */
   useEffect(() => {
     itemsRef
       .where('userToken', '==', token)
@@ -31,10 +38,10 @@ const ListContextProvider = (props) => {
       .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
-  });
+  }, []);
 
   return (
-    <ListContext.Provider value={(userList, token, itemsRef)}>
+    <ListContext.Provider value={{ userList, token, itemsRef }}>
       {props.children}
     </ListContext.Provider>
   );
