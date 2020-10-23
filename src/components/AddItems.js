@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ListContext } from '../context/ListContext';
 import './AddItems.css';
 
 const AddItems = (props) => {
-  const itemsRef = props.itemsRef;
+  const listContext = useContext(ListContext);
+
+  const itemsRef = listContext.itemsRef;
 
   const [formData, setFormData] = useState({
     itemName: '',
     timeFrame: 7,
     lastPurchased: null,
-    userToken: props.token,
+    userToken: listContext.token,
     dateCreated: new Date(),
   });
 
@@ -22,7 +25,7 @@ const AddItems = (props) => {
 
   // function to compare new entry with existing entries
   const compareItems = (currentItem) => {
-    const matches = props.userList.filter(
+    const matches = listContext.userList.filter(
       (item) =>
         item.itemName.replace(/[^A-Z0-9]+/gi, '').toLowerCase() ==
         currentItem.replace(/[^A-Z0-9]+/gi, '').toLowerCase(),

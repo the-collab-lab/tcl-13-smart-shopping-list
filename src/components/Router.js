@@ -11,28 +11,11 @@ const Router = (props) => (
     <Route exact path="/">
       {props.token ? <Redirect to="/view-list" /> : <Welcome />}
     </Route>
-    <Route
-      exact
-      path="/view-list"
-      component={() => (
-        <ViewList
-          token={props.token}
-          itemsRef={props.itemsRef}
-          userList={props.userList}
-        />
-      )}
-    />
+    <Route exact path="/view-list" component={() => <ViewList />} />
     <Route
       exact
       path="/add-items"
-      component={() => (
-        <AddItems
-          token={props.token}
-          itemsRef={props.itemsRef}
-          userList={props.userList}
-          itemAddedHandler={props.itemAddedHandler}
-        />
-      )}
+      component={() => <AddItems itemAddedHandler={props.itemAddedHandler} />}
     />
     <Route exact path="/new-list">
       {props.token ? (
