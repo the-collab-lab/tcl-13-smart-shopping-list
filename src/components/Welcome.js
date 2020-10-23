@@ -32,7 +32,7 @@ export default function Welcome() {
         } else {
           localStorage.setItem('tcl13-token', userInputToken);
           querySnapshot.forEach(function (doc) {
-            console.log(doc.id, ' => ', doc.data());
+            doc.data();
           });
         }
       })
