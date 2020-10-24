@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { ListContext } from '../context/ListContext';
 import './AddItems.css';
 
-const AddItems = (props) => {
+const AddItems = () => {
   const listContext = useContext(ListContext);
   console.log(listContext.token);
 
@@ -31,7 +31,6 @@ const AddItems = (props) => {
         item.itemName.replace(/[^A-Z0-9]+/gi, '').toLowerCase() ==
         currentItem.replace(/[^A-Z0-9]+/gi, '').toLowerCase(),
     );
-    console.log(matches);
     return matches.length < 1;
   };
 
@@ -43,11 +42,6 @@ const AddItems = (props) => {
       itemsRef
         .add(formData)
         .then(function () {
-          /*CONTEXT ERROR - this method to set userList stat should be replaced... 
-            1. Is there a method to set context state from here?
-            2. can the database call in the ListContext component be updated to a realtime listener?
-          */
-          props.itemAddedHandler(formData);
           setFormData({ itemName: '' });
           alert('submitted');
         })
