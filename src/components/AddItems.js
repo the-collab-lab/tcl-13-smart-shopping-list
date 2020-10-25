@@ -4,9 +4,6 @@ import './AddItems.css';
 
 const AddItems = () => {
   const listContext = useContext(ListContext);
-  console.log(listContext.token);
-
-  const itemsRef = listContext.itemsRef;
 
   const [formData, setFormData] = useState({
     itemName: '',
@@ -15,6 +12,11 @@ const AddItems = () => {
     userToken: listContext.token,
     dateCreated: new Date(),
   });
+
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const itemsRef = listContext.itemsRef;
 
   // handle change of each form input, set state
   const updateInput = (e) => {
@@ -50,7 +52,8 @@ const AddItems = () => {
           console.error('error adding item to the database!', error);
         });
     } else {
-      alert('this item already exists in the database!');
+      setError(true);
+      setErrorMessage('This item already exists in the database!');
     }
   };
 
@@ -63,12 +66,14 @@ const AddItems = () => {
           Item Name:
         </label>
         <input
+          className={error ? 'error' : ''}
           type="text"
           placeholder="Add your item here"
           name="itemName"
           value={formData.itemName}
           onChange={updateInput}
         />
+        {errorMessage ? <p className="error">{errorMessage}</p> : null}
         <br />
         <br />
         <fieldset className="fieldset">

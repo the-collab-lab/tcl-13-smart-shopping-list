@@ -1,9 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ListContext } from '../context/ListContext';
+import './Welcome.css';
 
 export default function Welcome() {
   const [userInputToken, setUserInputToken] = useState('');
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const currentList = useContext(ListContext);
 
@@ -19,7 +22,8 @@ export default function Welcome() {
       .get()
       .then(function (querySnapshot) {
         if (querySnapshot.empty) {
-          alert('User Token Does Not Exist.Please Try Again');
+          setError(true);
+          setErrorMessage('This token is not valid. Try again');
         } else {
           localStorage.setItem('tcl13-token', userInputToken);
           currentList.updateToken();
@@ -44,6 +48,7 @@ export default function Welcome() {
       <form onSubmit={handleJoinList}>
         <label htmlFor="tokenField"> Share Token </label>
         <input
+          className={error ? 'error' : ''}
           id="tokenField"
           placeholder="three word token"
           type="text"
@@ -51,6 +56,7 @@ export default function Welcome() {
           value={userInputToken}
           onChange={handleChange}
         ></input>
+        {errorMessage ? <p className="error">{errorMessage}</p> : null}
         <button type="submit">Join an existing list</button>
       </form>
     </div>

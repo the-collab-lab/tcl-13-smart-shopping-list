@@ -10,3 +10,8 @@
 .label-1 {
   display: block;
 }
+
+.error {
+  color: red;
+  border: 1px solid red;
+}

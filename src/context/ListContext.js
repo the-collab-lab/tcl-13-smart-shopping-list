@@ -14,6 +14,8 @@ const ListContextProvider = (props) => {
     updateToken();
   }, []);
 
+  //TODO:error handler function
+
   const updateToken = () => {
     const tempToken = localStorage.getItem('tcl13-token');
     setToken(tempToken);
