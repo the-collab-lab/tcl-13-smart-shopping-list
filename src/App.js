@@ -3,19 +3,20 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import Router from './components/Router';
-import CheckToken from './components/CheckToken';
+import ListContextProvider from './context/ListContext';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <h1>Welcome to your Shopping List!</h1>
-        </header>
-        <CheckToken />
-        <Router />
-        <Nav />
-      </div>
+      <ListContextProvider>
+        <div className="App">
+          <header className="App-header">
+            <h1>Welcome to your Shopping List!</h1>
+          </header>
+          <Router />
+          <Nav />
+        </div>
+      </ListContextProvider>
     </BrowserRouter>
   );
 }

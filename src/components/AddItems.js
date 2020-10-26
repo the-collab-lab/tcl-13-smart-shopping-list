@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { db } from '../lib/firebase';
+import React, { useState, useContext } from 'react';
+import { ListContext } from '../context/ListContext';
 import './AddItems.css';
 
 const AddItems = () => {
-  //token to represent localStorage value
-  const userToken = localStorage.getItem('tcl13-token');
+  const listContext = useContext(ListContext);
 
   const [formData, setFormData] = useState({
     itemName: '',
     timeFrame: 7,
     lastPurchased: null,
-    userToken: userToken,
+    userToken: listContext.token,
     dateCreated: new Date(),
   });
 
-  //references the doc we are updating and changing
-  const itemsRef = db.collection('items');
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const itemsRef = listContext.itemsRef;
 
   // handle change of each form input, set state
   const updateInput = (e) => {
@@ -25,20 +26,35 @@ const AddItems = () => {
     });
   };
 
+  // function to compare new entry with existing entries
+  const compareItems = (currentItem) => {
+    const matches = listContext.userList.filter(
+      (item) =>
+        item.itemName.replace(/[^A-Z0-9]+/gi, '').toLowerCase() ==
+        currentItem.replace(/[^A-Z0-9]+/gi, '').toLowerCase(),
+    );
+    return matches.length < 1;
+  };
+
   // submits state to database
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    itemsRef
-      .add(formData)
-      .then(function () {
-        console.log('submitted!');
-        alert('submitted');
-      })
-      // catches & logs any errors
-      .catch(function (error) {
-        console.error('error adding item to the database!', error);
-      });
+    if (compareItems(formData.itemName)) {
+      itemsRef
+        .add(formData)
+        .then(function () {
+          setFormData({ itemName: '' });
+          alert('submitted');
+        })
+        // catches & logs any errors
+        .catch(function (error) {
+          console.error('error adding item to the database!', error);
+        });
+    } else {
+      setError(true);
+      setErrorMessage('This item already exists in the database!');
+    }
   };
 
   return (
@@ -50,12 +66,14 @@ const AddItems = () => {
           Item Name:
         </label>
         <input
+          className={error ? 'error' : ''}
           type="text"
           placeholder="Add your item here"
           name="itemName"
           value={formData.itemName}
           onChange={updateInput}
         />
+        {errorMessage ? <p className="error">{errorMessage}</p> : null}
         <br />
         <br />
         <fieldset className="fieldset">
