@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ListContext } from '../context/ListContext';
+import { Link } from 'react-router-dom';
 
 const ViewList = () => {
   let currentList = useContext(ListContext);
@@ -13,9 +14,12 @@ const ViewList = () => {
             <li key={index}> {element.itemName} </li>
           ))
         ) : (
-          <p> No list </p>
+          <div>
+            <p> You don't have any items</p>
+            <Link to="/add-items">Add your first item!</Link>
+          </div>
         )}
-        {/* // {currentList.userList && */}
+        ;{/* // {currentList.userList && */}
         {/* //   currentList.userList.map((element, index) => (
         //     <li key={index}> {element.itemName} </li>
           // ))} */}
