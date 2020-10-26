@@ -5,7 +5,7 @@ export const ListContext = createContext();
 
 const ListContextProvider = (props) => {
   const [token, setToken] = useState(null);
-  const [userList, setUserList] = useState(null);
+  const [userList, setUserList] = useState([]);
 
   //references the doc we are updating and changing
   const itemsRef = db.collection('items');

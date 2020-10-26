@@ -9,7 +9,7 @@ const ViewList = () => {
     <div>
       <h1>View List</h1>
       <ul>
-        {currentList.userList ? (
+        {currentList.userList.length > 0 ? (
           currentList.userList.map((element, index) => (
             <li key={index}> {element.itemName} </li>
           ))
@@ -19,7 +19,7 @@ const ViewList = () => {
             <Link to="/add-items">Add your first item!</Link>
           </div>
         )}
-        ;{/* // {currentList.userList && */}
+        {/* // {currentList.userList && */}
         {/* //   currentList.userList.map((element, index) => (
         //     <li key={index}> {element.itemName} </li>
           // ))} */}
