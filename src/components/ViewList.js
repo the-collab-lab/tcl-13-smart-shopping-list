@@ -3,7 +3,9 @@ import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 
 const ViewList = () => {
-  let currentList = useContext(ListContext);
+  const currentList = useContext(ListContext);
+
+  // If the list is empty, add a prompt and link to Add Items
 
   return (
     <div>
@@ -19,15 +21,9 @@ const ViewList = () => {
             <Link to="/add-items">Add your first item!</Link>
           </div>
         )}
-        {/* // {currentList.userList && */}
-        {/* //   currentList.userList.map((element, index) => (
-        //     <li key={index}> {element.itemName} </li>
-          // ))} */}
       </ul>
     </div>
   );
 };
 
 export default ViewList;
-
-// Make it a ternerary operator so if the list exists, map through, if it doesn't maybe show a link to add items

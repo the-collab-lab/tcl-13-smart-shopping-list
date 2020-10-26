@@ -62,5 +62,3 @@ export default function Welcome() {
     </div>
   );
 }
-
-//! If the list is empty, show a prompt/button for users to add their first item

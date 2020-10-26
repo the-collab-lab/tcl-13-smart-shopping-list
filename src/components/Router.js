@@ -10,13 +10,19 @@ import Welcome from './Welcome';
 const Router = () => {
   const currentList = useContext(ListContext);
 
+  // If there's no user token, Add Items and View List redirects to Welcome
+
   return (
     <Switch>
       <Route exact path="/">
         {currentList.token ? <Redirect to="/view-list" /> : <Welcome />}
       </Route>
-      <Route exact path="/view-list" component={() => <ViewList />} />
-      <Route exact path="/add-items" component={() => <AddItems />} />
+      <Route exact path="/view-list">
+        {!currentList.token ? <Redirect to="/" /> : <ViewList />}
+      </Route>
+      <Route exact path="/add-items">
+        {!currentList.token ? <Redirect to="/" /> : <AddItems />}
+      </Route>
       <Route exact path="/new-list">
         {currentList.token ? <Redirect to="/view-list" /> : <NewList />}
       </Route>
