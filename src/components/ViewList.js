@@ -16,6 +16,16 @@ const ViewList = () => {
     }));
   };
 
+  const handleTiming = (e) => {
+    const item = e.target.name;
+    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+    const timingArray = currentList.userList.filter(
+      (element) => element.itemName === item,
+    );
+    if (currentTimeInSeconds > timingArray.lastPurchased.seconds + 86400)
+      return false;
+  };
+
   const updateDatabase = (e) => {
     handleCheck(e);
     //finds the current list
