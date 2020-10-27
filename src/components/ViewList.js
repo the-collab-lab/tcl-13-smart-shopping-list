@@ -10,33 +10,21 @@ const ViewList = () => {
   const [checked, setChecked] = useState(false);
 
   const handleCheck = (e) => {
-    e.preventDefault();
-
     setItemsPurchased(e.target.value);
     setChecked(true);
 
-    // currentList.itemsRef
-    //   .where('userToken', '==', localStorage.getItem('tcl13-token'))
-    //   .where('itemName', '==', itemsPurchased)
-    //   .set({ lastPurchased: new Date() }, {merge: true})
-    //   .then(function () {
-    //     console.log('Document Updated Succesfully');
-    //   })
-    //   .catch(function (error) {
-    //     console.error('Error Updating Document');
-    //   });
-
     currentList.itemsRef.where('userToken', '==', token).onSnapshot(
-      (querySnapshot) => {
-        let tempItem = querySnapshot.docs;
-
-        let updateItem = tempItem.filter(
-          (item) => item.data().itemName === itemsPurchased,
-        );
-
-        console.log(updateItem);
+      function (querySnapShot) {
+        querySnapShot.forEach(function (doc) {
+          if (doc.data().itemName === itemsPurchased) {
+            const itemId = doc.id;
+            currentList.itemsRef
+              .doc(itemId)
+              .set({ lastPurchased: new Date() }, { merge: true });
+          }
+        });
       },
-      (error) => {
+      function (error) {
         console.log('Error getting documents: ', error);
       },
     );
