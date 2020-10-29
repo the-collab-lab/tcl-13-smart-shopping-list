@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
 
 const ViewList = () => {
@@ -7,47 +7,73 @@ const ViewList = () => {
 
   const [itemsPurchased, setItemsPurchased] = useState({});
 
-  const handleCheck = (e) => {
+  const handleCheck = async (e) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
-    setItemsPurchased((prevItemsPurchased) => ({
+    await setItemsPurchased((prevItemsPurchased) => ({
       ...prevItemsPurchased,
       [item]: isChecked,
     }));
   };
 
-  const handleTiming = (e) => {
-    const item = e.target.name;
-    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
-    const timingArray = currentList.userList.filter(
-      (element) => element.itemName === item,
-    );
-    if (currentTimeInSeconds > timingArray.lastPurchased.seconds + 86400)
-      return false;
-  };
+  useEffect(() => {
+    const handleTiming = () => {
+      let currentTime = Date.now();
+      console.log(currentTime);
 
-  const updateDatabase = (e) => {
-    handleCheck(e);
-    //finds the current list
-    currentList.itemsRef.where('userToken', '==', token).onSnapshot(
-      function (querySnapShot) {
-        querySnapShot.forEach(function (doc) {
-          //finds the documents where the itemsPurchased exist
-          if (doc.data().itemName === itemsPurchased) {
-            //grabs the id
-            const itemId = doc.id;
-            //finds the document & sets the lastPurchased field to current date
-            currentList.itemsRef
-              .doc(itemId)
-              .update({ lastPurchased: new Date() });
-          }
+      const lastPurchasedTimeArray =
+        currentList.userList &&
+        currentList.userList.map((element) => {
+          const container = {};
+          container.itemName = element.itemName;
+          container.t = element.lastPurchased;
+          return container;
         });
-      },
-      function (error) {
-        console.log('Error getting documents: ', error);
-      },
-    );
-  };
+
+      lastPurchasedTimeArray &&
+        lastPurchasedTimeArray.forEach((element) => {
+          if (element.t + 86400000 < currentTime) {
+            setItemsPurchased((prevItemsPurchased) => ({
+              ...prevItemsPurchased,
+              [element.itemName]: false,
+            }));
+          } else
+            setItemsPurchased((prevItemsPurchased) => ({
+              ...prevItemsPurchased,
+              [element.itemName]: true,
+            }));
+        });
+    };
+    handleTiming();
+  }, []);
+
+  useEffect(() => {
+    const updateDatabase = () => {
+      // let name = e.target.value
+      // console.log(Object.keys(itemsPurchased).find(key => itemsPurchased[key] == name))
+      //finds the current list
+      currentList.itemsRef.where('userToken', '==', token).onSnapshot(
+        function (querySnapShot) {
+          querySnapShot.forEach(function (doc) {
+            //finds the documents where the itemsPurchased exist
+            if (itemsPurchased.hasOwnProperty(doc.data().itemName)) {
+              //grabs the id
+              const itemId = doc.id;
+              //finds the document & sets the lastPurchased field to current date
+              currentList.itemsRef
+                .doc(itemId)
+                .update({ lastPurchased: new Date().getTime() });
+            }
+          });
+        },
+        function (error) {
+          console.log('Error getting documents: ', error);
+        },
+      );
+    };
+
+    updateDatabase();
+  }, []);
 
   return (
     <div>
@@ -61,7 +87,7 @@ const ViewList = () => {
                 name={element.itemName}
                 value={element.itemName}
                 className="purchased"
-                onChange={(e) => updateDatabase(e)}
+                onChange={handleCheck}
                 checked={itemsPurchased[element.itemName] || false}
               ></input>
               <li> {element.itemName} </li>
