@@ -8,13 +8,14 @@ const ViewList = () => {
   const [itemsPurchased, setItemsPurchased] = useState({});
 
   const handleCheck = async (e) => {
+    e.persist();
     const item = e.target.name;
     const isChecked = e.target.checked;
     await setItemsPurchased((prevItemsPurchased) => ({
       ...prevItemsPurchased,
       [item]: isChecked,
     }));
-    updateDatabase();
+    updateDatabase(e);
   };
 
   useEffect(() => {
@@ -52,20 +53,20 @@ const ViewList = () => {
     let docId = e.target.id;
     console.log(docId);
 
-    // let currentRef = currentList.itemsRef.doc(docId);
-    // console.log(currentRef)
-    //
-    // return currentRef
-    //   .update({
-    //     lastPurchased: new Date().getTime(),
-    //   })
-    //   .then(function () {
-    //     console.log('Document successfully updated!');
-    //   })
-    //   .catch(function (error) {
-    //     // The document probably doesn't exist.
-    //     console.error('Error updating document: ', error);
-    //   });
+    let currentRef = currentList.itemsRef.doc(docId);
+    console.log(currentRef);
+
+    return currentRef
+      .update({
+        lastPurchased: new Date().getTime(),
+      })
+      .then(function () {
+        console.log('Document successfully updated!');
+      })
+      .catch(function (error) {
+        // The document probably doesn't exist.
+        console.error('Error updating document: ', error);
+      });
   };
 
   return (
@@ -81,7 +82,7 @@ const ViewList = () => {
                 id={element.id}
                 value={element.itemName}
                 className="purchased"
-                onChange={handleCheck()}
+                onChange={handleCheck}
                 checked={itemsPurchased[element.itemName] || false}
               ></input>
               <li> {element.itemName} </li>
