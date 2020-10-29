@@ -27,7 +27,7 @@ const ListContextProvider = (props) => {
         (querySnapshot) => {
           let tempItems = [];
           querySnapshot.forEach(function (doc) {
-            tempItems.push(doc.data());
+            tempItems.push({ ...doc.data(), id: doc.id });
           });
           setUserList(tempItems);
         },

@@ -14,6 +14,7 @@ const ViewList = () => {
       ...prevItemsPurchased,
       [item]: isChecked,
     }));
+    updateDatabase();
   };
 
   useEffect(() => {
@@ -47,33 +48,25 @@ const ViewList = () => {
     handleTiming();
   }, []);
 
-  useEffect(() => {
-    const updateDatabase = () => {
-      // let name = e.target.value
-      // console.log(Object.keys(itemsPurchased).find(key => itemsPurchased[key] == name))
-      //finds the current list
-      currentList.itemsRef.where('userToken', '==', token).onSnapshot(
-        function (querySnapShot) {
-          querySnapShot.forEach(function (doc) {
-            //finds the documents where the itemsPurchased exist
-            if (itemsPurchased.hasOwnProperty(doc.data().itemName)) {
-              //grabs the id
-              const itemId = doc.id;
-              //finds the document & sets the lastPurchased field to current date
-              currentList.itemsRef
-                .doc(itemId)
-                .update({ lastPurchased: new Date().getTime() });
-            }
-          });
-        },
-        function (error) {
-          console.log('Error getting documents: ', error);
-        },
-      );
-    };
+  const updateDatabase = (e) => {
+    let docId = e.target.id;
+    console.log(docId);
 
-    updateDatabase();
-  }, []);
+    // let currentRef = currentList.itemsRef.doc(docId);
+    // console.log(currentRef)
+    //
+    // return currentRef
+    //   .update({
+    //     lastPurchased: new Date().getTime(),
+    //   })
+    //   .then(function () {
+    //     console.log('Document successfully updated!');
+    //   })
+    //   .catch(function (error) {
+    //     // The document probably doesn't exist.
+    //     console.error('Error updating document: ', error);
+    //   });
+  };
 
   return (
     <div>
@@ -85,9 +78,10 @@ const ViewList = () => {
               <input
                 type="checkbox"
                 name={element.itemName}
+                id={element.id}
                 value={element.itemName}
                 className="purchased"
-                onChange={handleCheck}
+                onChange={handleCheck()}
                 checked={itemsPurchased[element.itemName] || false}
               ></input>
               <li> {element.itemName} </li>
