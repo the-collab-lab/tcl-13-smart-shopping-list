@@ -59,6 +59,7 @@ const ViewList = () => {
     return currentRef
       .update({
         lastPurchased: new Date().getTime(),
+        lastPurchasedDate: new Date(),
       })
       .then(function () {
         console.log('Document successfully updated!');
