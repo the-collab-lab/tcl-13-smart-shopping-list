@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Router from './components/Router';
+import Router from './routing/Router';
 import ListContextProvider from './context/ListContext';
 
 function App() {
