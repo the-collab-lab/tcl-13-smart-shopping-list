@@ -21,11 +21,11 @@ const ListContextProvider = (props) => {
 
   useEffect(() => {
     if (token != null) {
-      itemsRef.where('userToken', '==', token).onSnapshot(
+      let unsubscribe = itemsRef.where('userToken', '==', token).onSnapshot(
         (querySnapshot) => {
           let tempItems = [];
           querySnapshot.forEach(function (doc) {
-            tempItems.push(doc.data());
+            tempItems.push({ ...doc.data(), id: doc.id });
           });
           setUserList(tempItems);
         },
@@ -33,6 +33,10 @@ const ListContextProvider = (props) => {
           console.log('Error getting documents: ', error);
         },
       );
+      //Trying to unsubsribe from onSnapshot to avoid memory leak error
+      return function cleanup() {
+        unsubscribe();
+      };
     }
   }, [token]);
 
