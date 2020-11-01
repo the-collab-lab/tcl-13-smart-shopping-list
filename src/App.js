@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Nav from './components/Nav';
-import Router from './components/Router';
+import Router from './routing/Router';
 import ListContextProvider from './context/ListContext';
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
             <h1>Welcome to your Shopping List!</h1>
           </header>
           <Router />
-          <Nav />
         </div>
       </ListContextProvider>
     </BrowserRouter>

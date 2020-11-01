@@ -1,7 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
+import { Link } from 'react-router-dom';
 
 const ViewList = () => {
+
+  // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
   let token = currentList.token;
 
@@ -74,7 +77,7 @@ const ViewList = () => {
     <div>
       <h1>View List</h1>
       <ul>
-        {currentList.userList &&
+        {currentList.userList.length > 0 ? (
           currentList.userList.map((element, index) => (
             <div key={index}>
               <input
@@ -88,7 +91,13 @@ const ViewList = () => {
               ></input>
               <li> {element.itemName} </li>
             </div>
-          ))}
+          ))
+        ) : (
+          <div>
+            <p> You don't have any items</p>
+            <Link to="/add-items">Add your first item!</Link>
+          </div>
+        )}
       </ul>
     </div>
   );

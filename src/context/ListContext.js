@@ -5,7 +5,7 @@ export const ListContext = createContext();
 
 const ListContextProvider = (props) => {
   const [token, setToken] = useState(null);
-  const [userList, setUserList] = useState();
+  const [userList, setUserList] = useState([]);
 
   //references the doc we are updating and changing
   const itemsRef = db.collection('items');
@@ -13,8 +13,6 @@ const ListContextProvider = (props) => {
   useEffect(() => {
     updateToken();
   }, []);
-
-  //TODO:error handler function
 
   const updateToken = () => {
     const tempToken = localStorage.getItem('tcl13-token');
