@@ -3,12 +3,13 @@ import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 
 const ViewList = () => {
-
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
   let token = currentList.token;
 
   const [itemsPurchased, setItemsPurchased] = useState({});
+  const [filterValue, setFilterValue] = useState('');
+  const [filteredList, setFilteredList] = useState([]);
 
   const handleCheck = async (e) => {
     e.persist();
@@ -52,6 +53,10 @@ const ViewList = () => {
     handleTiming();
   }, []);
 
+  useEffect(() => {
+    setFilteredList(currentList.userList);
+  }, []);
+
   const updateDatabase = (e) => {
     let docId = e.target.id;
     console.log(docId);
@@ -73,12 +78,34 @@ const ViewList = () => {
       });
   };
 
+  const handleSearchChange = (e) => {
+    setFilterValue(e.target.value);
+  };
+
+  useEffect(() => {
+    let listFilter = currentList.userList;
+    let filtered =
+      listFilter &&
+      listFilter.filter((item) => {
+        return item.itemName.toLowerCase().includes(filterValue.toLowerCase());
+      });
+    setFilteredList(filtered);
+  }, [filterValue]);
+
   return (
     <div>
       <h1>View List</h1>
+      <label for="search">Search</label>
+      <input
+        type="search"
+        name="search"
+        id="search"
+        value={filterValue}
+        onChange={handleSearchChange}
+      />
       <ul>
         {currentList.userList.length > 0 ? (
-          currentList.userList.map((element, index) => (
+          filteredList.map((element, index) => (
             <div key={index}>
               <input
                 type="checkbox"
