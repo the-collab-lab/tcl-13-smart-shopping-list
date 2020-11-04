@@ -7,19 +7,12 @@ const ViewList = () => {
   let currentList = useContext(ListContext);
 
   const handleCheck = async (e) => {
-    e.persist();
-    const item = e.target.name;
-    const isChecked = e.target.checked;
-    updateDatabase(e);
-  };
-
-  const updateDatabase = (e) => {
     let docId = e.target.id;
     let currentRef = currentList.itemsRef.doc(docId);
 
     return currentRef
       .update({
-        lastPurchased: new Date(),
+        lastPurchasedDate: new Date(),
       })
       .then(function () {
         console.log('Document successfully updated!');
@@ -29,6 +22,8 @@ const ViewList = () => {
         console.error('Error updating document: ', error);
       });
   };
+
+  const updateDatabase = (e) => {};
 
   return (
     <div>

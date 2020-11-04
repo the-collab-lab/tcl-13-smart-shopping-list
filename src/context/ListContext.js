@@ -3,11 +3,6 @@ import { db } from '../lib/firebase';
 
 export const ListContext = createContext();
 
-//playing around with date dayjs
-//dayjs.extend(utc)
-//console.log(typeof dayjs().format());
-//console.log(new Date());
-
 const ListContextProvider = (props) => {
   const [token, setToken] = useState(null);
   const [userList, setUserList] = useState([]);
