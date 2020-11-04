@@ -3,6 +3,11 @@ import { db } from '../lib/firebase';
 
 export const ListContext = createContext();
 
+//playing around with date dayjs
+//dayjs.extend(utc)
+//console.log(typeof dayjs().format());
+//console.log(new Date());
+
 const ListContextProvider = (props) => {
   const [token, setToken] = useState(null);
   const [userList, setUserList] = useState([]);
@@ -19,13 +24,34 @@ const ListContextProvider = (props) => {
     setToken(tempToken);
   };
 
+  const setPurchased = (lastPurchased) => {
+    console.log(
+      'calculating last purchased from these seconds: ',
+      lastPurchased,
+    );
+    // create variable that represents x days, in seconds
+    const deltaSeconds = 2 * 24 * 60 * 60;
+    // variable that represents now, in seconds
+    const timeNow = new Date().getTime() / 1000;
+    return timeNow - lastPurchased < deltaSeconds;
+  };
+
   useEffect(() => {
     if (token != null) {
       let unsubscribe = itemsRef.where('userToken', '==', token).onSnapshot(
         (querySnapshot) => {
           let tempItems = [];
           querySnapshot.forEach(function (doc) {
-            tempItems.push({ ...doc.data(), id: doc.id });
+            const lastPurchased = doc.data().lastPurchasedDate;
+            let isPurchased = false;
+            lastPurchased
+              ? (isPurchased = setPurchased(lastPurchased.seconds))
+              : (isPurchased = false);
+            tempItems.push({
+              ...doc.data(),
+              isPurchased: isPurchased,
+              id: doc.id,
+            });
           });
           setUserList(tempItems);
         },
