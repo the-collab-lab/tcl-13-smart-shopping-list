@@ -22,6 +22,10 @@ const ViewList = () => {
     updateDatabase(e);
   };
 
+  const handleClearClick = () => {
+    setFilterValue('');
+  };
+
   useEffect(() => {
     const handleTiming = () => {
       let currentTime = Date.now();
@@ -95,7 +99,7 @@ const ViewList = () => {
   return (
     <div>
       <h1>View List</h1>
-      <label for="search">Search</label>
+      <label htmlFor="search">Type to Search</label>
       <input
         type="search"
         name="search"
@@ -103,6 +107,8 @@ const ViewList = () => {
         value={filterValue}
         onChange={handleSearchChange}
       />
+      <label htmlFor="Clear" aria-label="Clear search bar"></label>
+      <button onClick={handleClearClick}>Clear</button>
       <ul>
         {currentList.userList.length > 0 ? (
           filteredList.map((element, index) => (
