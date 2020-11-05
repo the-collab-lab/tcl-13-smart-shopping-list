@@ -7,10 +7,11 @@ const AddItems = () => {
 
   const [formData, setFormData] = useState({
     itemName: '',
-    timeFrame: 7,
+    lastEstimate: 7,
     lastPurchased: null,
     userToken: listContext.token,
     dateCreated: new Date(),
+    numberOfPurchases: 0,
   });
 
   const [error, setError] = useState(false);
@@ -30,7 +31,7 @@ const AddItems = () => {
   const compareItems = (currentItem) => {
     const matches = listContext.userList.filter(
       (item) =>
-        item.itemName.replace(/[^A-Z0-9]+/gi, '').toLowerCase() ==
+        item.itemName.replace(/[^A-Z0-9]+/gi, '').toLowerCase() ===
         currentItem.replace(/[^A-Z0-9]+/gi, '').toLowerCase(),
     );
     return matches.length < 1;
@@ -79,12 +80,15 @@ const AddItems = () => {
         <br />
         <fieldset className="fieldset">
           <legend>Time Frame</legend>
-          <label htmlFor="timeFrame"> How soon will you buy this again?</label>
+          <label htmlFor="lastEstimate">
+            {' '}
+            How soon will you buy this again?
+          </label>
           <br />
           <input
             type="radio"
             id="soon"
-            name="timeFrame"
+            name="lastEstimate"
             defaultChecked
             value="7"
             onChange={updateInput}
@@ -94,7 +98,7 @@ const AddItems = () => {
           <input
             type="radio"
             id="kinda-soon"
-            name="timeFrame"
+            name="lastEstimate"
             value="14"
             onChange={updateInput}
           />
@@ -103,7 +107,7 @@ const AddItems = () => {
           <input
             type="radio"
             id="not-soon"
-            name="timeFrame"
+            name="lastEstimate"
             value="30"
             onChange={updateInput}
           />
