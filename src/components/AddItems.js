@@ -40,6 +40,7 @@ const AddItems = () => {
   // submits state to database
   const handleSubmit = (event) => {
     event.preventDefault();
+    parseInt(formData.lastEstimate);
 
     if (compareItems(formData.itemName)) {
       itemsRef

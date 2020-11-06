@@ -12,35 +12,40 @@ const ViewList = () => {
     // retrieve event informationt
     let docId = e.target.id;
     let currentRef = currentList.itemsRef.doc(docId);
+
     //filter context for current item
-    const currentItem = currentList.userList.filter((item) => item.id == docId);
+    const currentItem = currentList.userList.find((item) => {
+      return item.id == docId;
+    });
+
     // store current item data
     let numberOfPurchases = currentItem.numberOfPurchases++;
-    let lastEstimate = currentItem.lastEstimate || currentItem.timeFrame;
+    let lastEstimate =
+      parseInt(currentItem.lastEstimate) || parseInt(currentItem.timeFrame);
     let latestInterval;
-    console.log(
-      currentItem.numberOfPurchases,
-      currentItem.lastEstimate,
-      currentItem.lastPurchased,
-    );
     let lastPurchased;
-    // if item has been purchased before, determine how much time has passed until now
-    //TODO fix this if statement
-    if (currentItem.lastPurchased) {
-      lastPurchased = currentItem.lastPurchased;
+
+    // if item has been purchased more than two times, calculate the last interval, otherwise set to original timeframe
+    if (numberOfPurchases > 2) {
+      lastPurchased = currentItem.lastPurchased.seconds;
       latestInterval = Math.ceil((timeNow - lastPurchased) / (24 * 60 * 60));
     } else {
-      latestInterval = currentItem.lastEstimate || currentItem.timeFrame;
+      latestInterval =
+        parseInt(currentItem.timeFrame) || parseInt(currentItem.lastEstimate);
     }
+
     lastEstimate = calculateEstimate(
       lastEstimate,
       latestInterval,
       numberOfPurchases,
     );
 
+    console.log('the calculated interval is ', lastEstimate);
+
+    //TODO update database with new lastEstimate, numberOfPurchases,
     return currentRef
       .update({
-        lastPurchased: timeNow,
+        lastPurchased: new Date(),
       })
       .then(function () {
         console.log('Document successfully updated!');
