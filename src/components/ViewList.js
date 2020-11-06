@@ -59,7 +59,7 @@ const ViewList = () => {
 
   useEffect(() => {
     setFilteredList(currentList.userList);
-  }, []);
+  }, [currentList.userList]);
 
   const updateDatabase = (e) => {
     let docId = e.target.id;
