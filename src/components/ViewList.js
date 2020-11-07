@@ -9,7 +9,7 @@ const ViewList = () => {
 
   const handleCheck = async (e) => {
     const timeNow = new Date().getTime() / 1000;
-    // retrieve event informationt
+    // retrieve event information
     let docId = e.target.id;
     let currentRef = currentList.itemsRef.doc(docId);
 
