@@ -13,13 +13,16 @@ const ViewList = () => {
     let docId = e.target.id;
     let currentRef = currentList.itemsRef.doc(docId);
 
-    //filter context for current item
+    //find context for current item
     const currentItem = currentList.userList.find((item) => {
       return item.id == docId;
     });
 
     // store current item data
-    let numberOfPurchases = currentItem.numberOfPurchases++;
+    let numberOfPurchases = 1;
+    currentItem.numberOfPurchases
+      ? (numberOfPurchases = currentItem.numberOfPurchases + 1)
+      : (numberOfPurchases = 1);
     let lastEstimate =
       parseInt(currentItem.lastEstimate) || parseInt(currentItem.timeFrame);
     let latestInterval;
@@ -46,6 +49,8 @@ const ViewList = () => {
     return currentRef
       .update({
         lastPurchased: new Date(),
+        lastEstimate: lastEstimate,
+        numberOfPurchases: numberOfPurchases,
       })
       .then(function () {
         console.log('Document successfully updated!');
