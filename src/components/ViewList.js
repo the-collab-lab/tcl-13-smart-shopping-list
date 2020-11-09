@@ -1,77 +1,54 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
+import calculateEstimate from '../lib/estimates';
 
 const ViewList = () => {
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
-  let token = currentList.token;
-
+  
   const [itemsPurchased, setItemsPurchased] = useState({});
   const [filterValue, setFilterValue] = useState('');
   const [filteredList, setFilteredList] = useState([]);
 
   const handleCheck = async (e) => {
-    e.persist();
-    const item = e.target.name;
-    const isChecked = e.target.checked;
-    await setItemsPurchased((prevItemsPurchased) => ({
-      ...prevItemsPurchased,
-      [item]: isChecked,
-    }));
-    updateDatabase(e);
-  };
-
-  const handleClearClick = () => {
-    setFilterValue('');
-  };
-
-  useEffect(() => {
-    const handleTiming = () => {
-      let currentTime = Date.now();
-      console.log(currentTime);
-
-      const lastPurchasedTimeArray =
-        currentList.userList &&
-        currentList.userList.map((element) => {
-          const container = {};
-          container.itemName = element.itemName;
-          container.t = element.lastPurchased;
-          return container;
-        });
-
-      lastPurchasedTimeArray &&
-        lastPurchasedTimeArray.forEach((element) => {
-          if (element.t + 86400000 < currentTime) {
-            setItemsPurchased((prevItemsPurchased) => ({
-              ...prevItemsPurchased,
-              [element.itemName]: false,
-            }));
-          } else
-            setItemsPurchased((prevItemsPurchased) => ({
-              ...prevItemsPurchased,
-              [element.itemName]: true,
-            }));
-        });
-    };
-    handleTiming();
-  }, []);
-
-  useEffect(() => {
-    setFilteredList(currentList.userList);
-  }, [currentList.userList]);
-
-  const updateDatabase = (e) => {
+    const timeNow = new Date().getTime() / 1000;
+    // retrieve event information
     let docId = e.target.id;
-    console.log(docId);
-
     let currentRef = currentList.itemsRef.doc(docId);
-    console.log(currentRef);
+
+    //find context for current item
+    const currentItem = currentList.userList.find((item) => {
+      return item.id == docId;
+    });
+
+    // store current item data
+    const numberOfPurchases = currentItem.numberOfPurchases
+      ? currentItem.numberOfPurchases + 1
+      : 1;
+    let lastEstimate = parseInt(currentItem.lastEstimate);
+    let latestInterval;
+    let lastPurchased;
+
+    // if item has been purchased more than two times, calculate the last interval
+    if (numberOfPurchases > 2) {
+      lastPurchased = currentItem.lastPurchased.seconds;
+      latestInterval = Math.ceil((timeNow - lastPurchased) / (24 * 60 * 60));
+    } else {
+      latestInterval = parseInt(currentItem.lastEstimate);
+    }
+
+    lastEstimate = calculateEstimate(
+      lastEstimate,
+      latestInterval,
+      numberOfPurchases,
+    );
 
     return currentRef
       .update({
-        lastPurchased: new Date().getTime(),
-        lastPurchasedDate: new Date(),
+        lastPurchased: new Date(),
+        lastEstimate: lastEstimate,
+        numberOfPurchases: numberOfPurchases,
       })
       .then(function () {
         console.log('Document successfully updated!');
@@ -81,6 +58,15 @@ const ViewList = () => {
         console.error('Error updating document: ', error);
       });
   };
+  
+  const handleClearClick = () => {
+    setFilterValue('');
+  };
+
+
+  useEffect(() => {
+    setFilteredList(currentList.userList);
+  }, [currentList.userList]);
 
   const handleSearchChange = (e) => {
     setFilterValue(e.target.value);
@@ -112,7 +98,7 @@ const ViewList = () => {
       <ul>
         {currentList.userList.length > 0 ? (
           filteredList.map((element, index) => (
-            <div key={index}>
+            <div key={element.id}>
               <input
                 type="checkbox"
                 name={element.itemName}
@@ -120,7 +106,7 @@ const ViewList = () => {
                 value={element.itemName}
                 className="purchased"
                 onChange={handleCheck}
-                checked={itemsPurchased[element.itemName] || false}
+                checked={element.isPurchased}
               ></input>
               <li> {element.itemName} </li>
             </div>

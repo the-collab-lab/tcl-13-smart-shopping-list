@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
-import { ListContext } from '../context/ListContext';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import ViewList from '../components/ViewList';
@@ -10,8 +9,6 @@ import NewList from '../components/NewList';
 import Welcome from '../components/Welcome';
 
 const Router = () => {
-  const currentList = useContext(ListContext);
-
   // If there's no user token, Add Items and View List redirects to Welcome
 
   return (

@@ -10,13 +10,24 @@ const ListContextProvider = (props) => {
   //references the doc we are updating and changing
   const itemsRef = db.collection('items');
 
+  // updates context token on every re-render
   useEffect(() => {
     updateToken();
   }, []);
 
+  //function to update token in context, called by context re-render, creating a new list, or joining an existing list
   const updateToken = () => {
     const tempToken = localStorage.getItem('tcl13-token');
     setToken(tempToken);
+  };
+
+  // function to calculate if items have been purchased in last x number of days
+  const setPurchased = (lastPurchased) => {
+    // create variable that represents x days, in seconds
+    const deltaSeconds = 1 + 24 * 60 * 60;
+    // variable that represents now, in seconds
+    const timeNow = new Date().getTime() / 1000;
+    return timeNow - lastPurchased < deltaSeconds;
   };
 
   useEffect(() => {
@@ -25,7 +36,16 @@ const ListContextProvider = (props) => {
         (querySnapshot) => {
           let tempItems = [];
           querySnapshot.forEach(function (doc) {
-            tempItems.push({ ...doc.data(), id: doc.id });
+            // logic to check if item has been purchased in last x number of days
+            const lastPurchased = doc.data().lastPurchased;
+            const isPurchased = lastPurchased
+              ? setPurchased(lastPurchased.seconds)
+              : false;
+            tempItems.push({
+              ...doc.data(),
+              isPurchased: isPurchased,
+              id: doc.id,
+            });
           });
           setUserList(tempItems);
         },
