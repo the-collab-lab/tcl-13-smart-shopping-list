@@ -19,22 +19,19 @@ const ViewList = () => {
     });
 
     // store current item data
-    let numberOfPurchases = 1;
-    currentItem.numberOfPurchases
-      ? (numberOfPurchases = currentItem.numberOfPurchases + 1)
-      : (numberOfPurchases = 1);
-    let lastEstimate =
-      parseInt(currentItem.lastEstimate) || parseInt(currentItem.timeFrame);
+    const numberOfPurchases = currentItem.numberOfPurchases
+      ? currentItem.numberOfPurchases + 1
+      : 1;
+    let lastEstimate = parseInt(currentItem.lastEstimate);
     let latestInterval;
     let lastPurchased;
 
-    // if item has been purchased more than two times, calculate the last interval, otherwise set to original timeframe
+    // if item has been purchased more than two times, calculate the last interval
     if (numberOfPurchases > 2) {
       lastPurchased = currentItem.lastPurchased.seconds;
       latestInterval = Math.ceil((timeNow - lastPurchased) / (24 * 60 * 60));
     } else {
-      latestInterval =
-        parseInt(currentItem.timeFrame) || parseInt(currentItem.lastEstimate);
+      latestInterval = parseInt(currentItem.lastEstimate);
     }
 
     lastEstimate = calculateEstimate(
@@ -43,9 +40,6 @@ const ViewList = () => {
       numberOfPurchases,
     );
 
-    console.log('the calculated interval is ', lastEstimate);
-
-    //TODO update database with new lastEstimate, numberOfPurchases,
     return currentRef
       .update({
         lastPurchased: new Date(),

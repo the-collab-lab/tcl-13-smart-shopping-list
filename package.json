@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dayjs": "^1.9.4",
     "firebase": "^7.22.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",

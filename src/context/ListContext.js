@@ -24,7 +24,7 @@ const ListContextProvider = (props) => {
   // function to calculate if items have been purchased in last x number of days
   const setPurchased = (lastPurchased) => {
     // create variable that represents x days, in seconds
-    const deltaSeconds = 1 * 24 * 60 * 60;
+    const deltaSeconds = 1 + 24 * 60 * 60;
     // variable that represents now, in seconds
     const timeNow = new Date().getTime() / 1000;
     return timeNow - lastPurchased < deltaSeconds;
@@ -38,10 +38,9 @@ const ListContextProvider = (props) => {
           querySnapshot.forEach(function (doc) {
             // logic to check if item has been purchased in last x number of days
             const lastPurchased = doc.data().lastPurchased;
-            let isPurchased = false;
-            lastPurchased
-              ? (isPurchased = setPurchased(lastPurchased.seconds))
-              : (isPurchased = false);
+            const isPurchased = lastPurchased
+              ? setPurchased(lastPurchased.seconds)
+              : false;
             tempItems.push({
               ...doc.data(),
               isPurchased: isPurchased,
