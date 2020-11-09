@@ -6,6 +6,10 @@ import calculateEstimate from '../lib/estimates';
 const ViewList = () => {
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
+  
+  const [itemsPurchased, setItemsPurchased] = useState({});
+  const [filterValue, setFilterValue] = useState('');
+  const [filteredList, setFilteredList] = useState([]);
 
   const handleCheck = async (e) => {
     const timeNow = new Date().getTime() / 1000;
@@ -54,14 +58,47 @@ const ViewList = () => {
         console.error('Error updating document: ', error);
       });
   };
+  
+  const handleClearClick = () => {
+    setFilterValue('');
+  };
+
+
+  useEffect(() => {
+    setFilteredList(currentList.userList);
+  }, [currentList.userList]);
+
+  const handleSearchChange = (e) => {
+    setFilterValue(e.target.value);
+  };
+
+  useEffect(() => {
+    let listFilter = currentList.userList;
+    let filtered =
+      listFilter &&
+      listFilter.filter((item) => {
+        return item.itemName.toLowerCase().includes(filterValue.toLowerCase());
+      });
+    setFilteredList(filtered);
+  }, [filterValue]);
 
   return (
     <div>
       <h1>View List</h1>
+      <label htmlFor="search">Type to Search</label>
+      <input
+        type="search"
+        name="search"
+        id="search"
+        value={filterValue}
+        onChange={handleSearchChange}
+      />
+      <label htmlFor="Clear" aria-label="Clear search bar"></label>
+      <button onClick={handleClearClick}>Clear</button>
       <ul>
         {currentList.userList.length > 0 ? (
-          currentList.userList.map((element, index) => (
-            <div key={index}>
+          filteredList.map((element, index) => (
+            <div key={element.id}>
               <input
                 type="checkbox"
                 name={element.itemName}
