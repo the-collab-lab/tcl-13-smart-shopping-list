@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
@@ -6,8 +6,7 @@ import calculateEstimate from '../lib/estimates';
 const ViewList = () => {
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
-  
-  const [itemsPurchased, setItemsPurchased] = useState({});
+
   const [filterValue, setFilterValue] = useState('');
   const [filteredList, setFilteredList] = useState([]);
 
@@ -58,11 +57,10 @@ const ViewList = () => {
         console.error('Error updating document: ', error);
       });
   };
-  
+
   const handleClearClick = () => {
     setFilterValue('');
   };
-
 
   useEffect(() => {
     setFilteredList(currentList.userList);
