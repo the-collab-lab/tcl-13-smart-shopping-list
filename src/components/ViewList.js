@@ -3,6 +3,8 @@ import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
 
+import './ViewList.css';
+
 const ViewList = () => {
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
@@ -106,7 +108,7 @@ const ViewList = () => {
                 onChange={handleCheck}
                 checked={element.isPurchased}
               ></input>
-              <li> {element.itemName} </li>
+              <li className={element.textEstimate}> {element.itemName} </li>
             </div>
           ))
         ) : (
