@@ -97,20 +97,36 @@ const ViewList = () => {
       <button onClick={handleClearClick}>Clear</button>
       <ul>
         {currentList.userList.length > 0 ? (
-          filteredList.map((element, index) => (
-            <div key={element.id}>
-              <input
-                type="checkbox"
-                name={element.itemName}
-                id={element.id}
-                value={element.itemName}
-                className="purchased"
-                onChange={handleCheck}
-                checked={element.isPurchased}
-              ></input>
-              <li className={element.textEstimate}> {element.itemName} </li>
-            </div>
-          ))
+          filteredList
+            .sort((a, b) => {
+              if (a.daysUntilPurchase < b.daysUntilPurchase) {
+                return -1;
+              }
+              if (a.daysUntilPurchase > b.daysUntilPurchase) {
+                return 1;
+              }
+              if (a.daysUntilPurchase === b.daysUntilPurchase) {
+                if (a.itemName < b.itemName) {
+                  return -1;
+                } else {
+                  return 1;
+                }
+              }
+            })
+            .map((element, index) => (
+              <div key={element.id}>
+                <input
+                  type="checkbox"
+                  name={element.itemName}
+                  id={element.id}
+                  value={element.itemName}
+                  className="purchased"
+                  onChange={handleCheck}
+                  checked={element.isPurchased}
+                ></input>
+                <li className={element.textEstimate}> {element.itemName} </li>
+              </div>
+            ))
         ) : (
           <div>
             <p> You don't have any items</p>
