@@ -9,3 +9,7 @@
 .not-soon {
   background-color: red;
 }
+
+.inactive {
+  background-color: grey;
+}

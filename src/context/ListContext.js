@@ -31,7 +31,12 @@ const ListContextProvider = (props) => {
   };
 
   // function to calculate time left until purchase
-  const timeUntilNextPurchase = (lastPurchased, lastEstimate, dateCreated) => {
+  const timeUntilNextPurchase = (
+    lastPurchased,
+    lastEstimate,
+    dateCreated,
+    numberOfPurchases,
+  ) => {
     // object to hold daysUntilPurchase textEstimate
     const estimatedTimeframes = {
       daysUntilPurchase: null,
@@ -51,15 +56,18 @@ const ListContextProvider = (props) => {
     }
 
     // subtract days since last purchase from lastEstimate to determine how many days left until next purchase
-    const daysUntilPurchase = lastEstimate - timeSinceLastPurchase;
-    estimatedTimeframes.daysUntilPurchase = Math.round(daysUntilPurchase);
+    const daysUntilPurchase = Math.ceil(lastEstimate - timeSinceLastPurchase);
+    estimatedTimeframes.daysUntilPurchase = daysUntilPurchase;
 
     console.log('days until purchase is :  ', daysUntilPurchase);
     console.log(typeof daysUntilPurchase);
     // return text estimate of daysUntilNextPurchase
-    if (daysUntilPurchase < 7) {
+
+    if (numberOfPurchases === 1 || timeSinceLastPurchase > lastEstimate * 2) {
+      estimatedTimeframes.textEstimate = 'inactive';
+    } else if (daysUntilPurchase <= 7) {
       estimatedTimeframes.textEstimate = 'soon';
-    } else if (7 <= daysUntilPurchase && daysUntilPurchase < 30) {
+    } else if (7 < daysUntilPurchase && daysUntilPurchase < 30) {
       estimatedTimeframes.textEstimate = 'kind-of-soon';
     } else if (daysUntilPurchase >= 30) {
       estimatedTimeframes.textEstimate = 'not-soon';
@@ -85,6 +93,7 @@ const ListContextProvider = (props) => {
               lastPurchased,
               doc.data().lastEstimate,
               doc.data().dateCreated,
+              doc.data().numberOfPurchases,
             );
 
             tempItems.push({

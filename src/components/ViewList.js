@@ -124,7 +124,13 @@ const ViewList = () => {
                   onChange={handleCheck}
                   checked={element.isPurchased}
                 ></input>
-                <li className={element.textEstimate}> {element.itemName} </li>
+                <li
+                  className={element.textEstimate}
+                  aria-label={`${element.itemName} needs to be purchased ${element.textEstimate}`}
+                >
+                  {' '}
+                  {element.itemName}{' '}
+                </li>
               </div>
             ))
         ) : (
