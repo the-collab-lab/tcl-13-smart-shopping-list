@@ -71,16 +71,17 @@ const ViewList = () => {
   };
 
   const handleDelete = (e) => {
-    window.confirm('Would you like to delete your item?');
-    currentList.itemsRef
-      .doc(e.target.id)
-      .delete()
-      .then(function () {
-        console.log('Document successfully deleted!');
-      })
-      .catch(function (error) {
-        console.error('Error removing document: ', error);
-      });
+    if (window.confirm('Would you like to delete your item?') == true) {
+      currentList.itemsRef
+        .doc(e.target.id)
+        .delete()
+        .then(function () {
+          console.log('Document successfully deleted!');
+        })
+        .catch(function (error) {
+          console.error('Error removing document: ', error);
+        });
+    }
   };
 
   useEffect(() => {
