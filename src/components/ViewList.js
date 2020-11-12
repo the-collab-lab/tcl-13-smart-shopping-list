@@ -71,6 +71,7 @@ const ViewList = () => {
   };
 
   const handleDelete = (e) => {
+    //if you confirm the delete dialogue than it will delete from the db
     if (window.confirm('Would you like to delete your item?') == true) {
       currentList.itemsRef
         .doc(e.target.id)
