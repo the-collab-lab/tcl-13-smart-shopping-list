@@ -32,7 +32,7 @@ const ViewList = () => {
     let lastPurchased;
 
     // if item has been purchased more than two times, calculate the last interval
-    if (numberOfPurchases > 2) {
+    if (numberOfPurchases > 1) {
       lastPurchased = currentItem.lastPurchased.seconds;
       latestInterval = Math.ceil((timeNow - lastPurchased) / (24 * 60 * 60));
     } else {
