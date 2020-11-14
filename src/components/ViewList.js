@@ -70,6 +70,21 @@ const ViewList = () => {
     setFilterValue(e.target.value);
   };
 
+  const handleDelete = (e) => {
+    //if you confirm the delete dialogue than it will delete from the db
+    if (window.confirm('Would you like to delete your item?') == true) {
+      currentList.itemsRef
+        .doc(e.target.id)
+        .delete()
+        .then(function () {
+          console.log('Document successfully deleted!');
+        })
+        .catch(function (error) {
+          console.error('Error removing document: ', error);
+        });
+    }
+  };
+
   useEffect(() => {
     let listFilter = currentList.userList;
     let filtered =
@@ -93,20 +108,26 @@ const ViewList = () => {
       />
       <label htmlFor="Clear" aria-label="Clear search bar"></label>
       <button onClick={handleClearClick}>Clear</button>
+
       <ul>
         {currentList.userList.length > 0 ? (
           filteredList.map((element, index) => (
             <div key={element.id}>
-              <input
-                type="checkbox"
-                name={element.itemName}
-                id={element.id}
-                value={element.itemName}
-                className="purchased"
-                onChange={handleCheck}
-                checked={element.isPurchased}
-              ></input>
-              <li> {element.itemName} </li>
+              <li>
+                <input
+                  type="checkbox"
+                  name={element.itemName}
+                  id={element.id}
+                  value={element.itemName}
+                  className="purchased"
+                  onChange={handleCheck}
+                  checked={element.isPurchased}
+                ></input>
+                {element.itemName}
+                <button onClick={handleDelete} id={element.id}>
+                  Delete
+                </button>
+              </li>
             </div>
           ))
         ) : (
