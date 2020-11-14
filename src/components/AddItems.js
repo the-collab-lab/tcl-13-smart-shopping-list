@@ -21,6 +21,7 @@ const AddItems = () => {
 
   // handle change of each form input, set state
   const updateInput = (e) => {
+    errorMessage && setErrorMessage(null);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -47,7 +48,7 @@ const AddItems = () => {
         itemsRef
           .add(formData)
           .then(function () {
-            setFormData({ formStarter });
+            setFormData(formStarter);
             alert('submitted');
           })
           // catches & logs any errors
@@ -93,7 +94,7 @@ const AddItems = () => {
             type="radio"
             id="soon"
             name="lastEstimate"
-            defaultChecked
+            checked={formData.lastEstimate == 7}
             value="7"
             onChange={updateInput}
           />
@@ -104,6 +105,7 @@ const AddItems = () => {
             id="kinda-soon"
             name="lastEstimate"
             value="14"
+            checked={formData.lastEstimate == 14}
             onChange={updateInput}
           />
           <label htmlFor="kinda-soon"> Kinda Soon</label>
@@ -113,6 +115,7 @@ const AddItems = () => {
             id="not-soon"
             name="lastEstimate"
             value="30"
+            checked={formData.lastEstimate == 30}
             onChange={updateInput}
           />
           <label htmlFor="not-soon">Not Soon</label>
