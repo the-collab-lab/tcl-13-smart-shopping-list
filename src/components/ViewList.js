@@ -112,29 +112,27 @@ const ViewList = () => {
       <ul>
         {currentList.userList.length > 0 ? (
           filteredList.map((element, index) => (
-            <div key={element.id}>
-              <li>
-                <input
-                  type="checkbox"
-                  name={element.itemName}
-                  id={element.id}
-                  value={element.itemName}
-                  className="purchased"
-                  onChange={handleCheck}
-                  checked={element.isPurchased}
-                ></input>
-                {element.itemName}
-                <button onClick={handleDelete} id={element.id}>
-                  Delete
-                </button>
-              </li>
-            </div>
+            <li key={element.id}>
+              <input
+                type="checkbox"
+                name={element.itemName}
+                id={element.id}
+                value={element.itemName}
+                className="purchased"
+                onChange={handleCheck}
+                checked={element.isPurchased}
+              ></input>
+              {element.itemName}
+              <button onClick={handleDelete} id={element.id}>
+                Delete
+              </button>
+            </li>
           ))
         ) : (
-          <div>
+          <li>
             <p> You don't have any items</p>
             <Link to="/add-items">Add your first item!</Link>
-          </div>
+          </li>
         )}
       </ul>
     </div>
