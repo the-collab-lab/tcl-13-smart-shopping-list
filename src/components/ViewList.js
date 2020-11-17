@@ -147,6 +147,9 @@ const ViewList = () => {
               <button onClick={handleDelete} id={element.id}>
                 Delete
               </button>
+              <button>
+                <Link to={`/item/${element.id}`}>Details</Link>
+              </button>
             </li>
           ))
         ) : (

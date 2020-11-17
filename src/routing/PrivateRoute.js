@@ -6,6 +6,8 @@ import Nav from '../components/Nav';
 const PrivateRoute = (props) => {
   const listContext = useContext(ListContext);
   const Component = props.component;
+  const itemId = props;
+  console.log(props.component);
   return (
     <div>
       {/*Show the component only when the user is logged in
