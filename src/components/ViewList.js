@@ -143,7 +143,7 @@ const ViewList = () => {
                 onChange={handleCheck}
                 checked={element.isPurchased}
               ></input>{' '}
-              {element.itemName} {element.itemName}
+              {element.itemName}
               <button onClick={handleDelete} id={element.id}>
                 Delete
               </button>

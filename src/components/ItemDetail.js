@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ListContext } from '../context/ListContext';
-import { BrowserRouter, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function ItemDetail(props) {
   let currentList = useContext(ListContext);
@@ -10,10 +10,20 @@ export default function ItemDetail(props) {
   let currentItem = currentList.userList.find((item) => item.id == id);
   console.log(currentItem);
 
-  // useEffect(() => {
-  //   console.log(params)
-
-  // }, [params])
-
-  return <div>{currentItem.itemName}</div>;
+  return (
+    <div>
+      <ul>
+        <li> Name: {currentItem.itemName} </li>
+        {/* TODO: fix from seconds to Date and the if property*/}
+        <li> Last Purchased Date: {'n/a' || currentItem.lastPurchased.t} </li>
+        <li>
+          {' '}
+          Estimated Days Until Next Purchase: {
+            currentItem.daysUntilPurchase
+          }{' '}
+        </li>
+        <li> Number of Purchases: {currentItem.numberOfPurchases} </li>
+      </ul>
+    </div>
+  );
 }
