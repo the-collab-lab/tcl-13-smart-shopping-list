@@ -30,6 +30,52 @@ const ListContextProvider = (props) => {
     return timeNow - lastPurchased < deltaSeconds;
   };
 
+  // function to calculate time left until purchase
+  const timeUntilNextPurchase = (
+    lastPurchased,
+    lastEstimate,
+    dateCreated,
+    numberOfPurchases,
+  ) => {
+    // object to hold daysUntilPurchase textEstimate
+    const estimatedTimeframes = {
+      daysUntilPurchase: null,
+      textEstimate: '',
+    };
+
+    // determine number of days since last purchase date
+    const timeNow = new Date().getTime() / 1000;
+    let timeSinceLastPurchase;
+
+    // if lastPurchased dosen't exist, set daysUntilPurchase = today-date created
+    if (lastPurchased) {
+      timeSinceLastPurchase =
+        (timeNow - lastPurchased.seconds) / (24 * 60 * 60);
+    } else {
+      timeSinceLastPurchase = (timeNow - dateCreated.seconds) / (24 * 60 * 60);
+    }
+
+    // subtract days since last purchase from lastEstimate to determine how many days left until next purchase
+    const daysUntilPurchase = Math.ceil(lastEstimate - timeSinceLastPurchase);
+    estimatedTimeframes.daysUntilPurchase = daysUntilPurchase;
+
+    console.log('days until purchase is :  ', daysUntilPurchase);
+    console.log(typeof daysUntilPurchase);
+    // return text estimate of daysUntilNextPurchase
+
+    if (numberOfPurchases === 1 || timeSinceLastPurchase > lastEstimate * 2) {
+      estimatedTimeframes.textEstimate = 'inactive';
+    } else if (daysUntilPurchase <= 7) {
+      estimatedTimeframes.textEstimate = 'soon';
+    } else if (7 < daysUntilPurchase && daysUntilPurchase < 30) {
+      estimatedTimeframes.textEstimate = 'kind-of-soon';
+    } else if (daysUntilPurchase >= 30) {
+      estimatedTimeframes.textEstimate = 'not-soon';
+    }
+
+    return estimatedTimeframes;
+  };
+
   useEffect(() => {
     if (token != null) {
       let unsubscribe = itemsRef.where('userToken', '==', token).onSnapshot(
@@ -41,9 +87,19 @@ const ListContextProvider = (props) => {
             const isPurchased = lastPurchased
               ? setPurchased(lastPurchased.seconds)
               : false;
+
+            // logic to estimate time remaining until purchase
+            const timeUntilPurchase = timeUntilNextPurchase(
+              lastPurchased,
+              doc.data().lastEstimate,
+              doc.data().dateCreated,
+              doc.data().numberOfPurchases,
+            );
+
             tempItems.push({
               ...doc.data(),
               isPurchased: isPurchased,
+              ...timeUntilPurchase,
               id: doc.id,
             });
           });

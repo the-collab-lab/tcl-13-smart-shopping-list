@@ -3,6 +3,8 @@ import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
 
+import './ViewList.css';
+
 const ViewList = () => {
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
@@ -30,7 +32,7 @@ const ViewList = () => {
     let lastPurchased;
 
     // if item has been purchased more than two times, calculate the last interval
-    if (numberOfPurchases > 2) {
+    if (numberOfPurchases > 1) {
       lastPurchased = currentItem.lastPurchased.seconds;
       latestInterval = Math.ceil((timeNow - lastPurchased) / (24 * 60 * 60));
     } else {
@@ -63,7 +65,22 @@ const ViewList = () => {
   };
 
   useEffect(() => {
-    setFilteredList(currentList.userList);
+    const sortedList = currentList.userList.sort((a, b) => {
+      if (a.daysUntilPurchase < b.daysUntilPurchase) {
+        return -1;
+      }
+      if (a.daysUntilPurchase > b.daysUntilPurchase) {
+        return 1;
+      }
+      if (a.daysUntilPurchase === b.daysUntilPurchase) {
+        if (a.itemName < b.itemName) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    });
+    setFilteredList(sortedList);
   }, [currentList.userList]);
 
   const handleSearchChange = (e) => {
@@ -112,7 +129,11 @@ const ViewList = () => {
       <ul>
         {currentList.userList.length > 0 ? (
           filteredList.map((element, index) => (
-            <li key={element.id}>
+            <li
+              key={element.id}
+              className={element.textEstimate}
+              aria-label={`${element.itemName} needs to be purchased ${element.textEstimate}`}
+            >
               <input
                 type="checkbox"
                 name={element.itemName}
@@ -121,8 +142,8 @@ const ViewList = () => {
                 className="purchased"
                 onChange={handleCheck}
                 checked={element.isPurchased}
-              ></input>
-              {element.itemName}
+              ></input>{' '}
+              {element.itemName} {element.itemName}
               <button onClick={handleDelete} id={element.id}>
                 Delete
               </button>

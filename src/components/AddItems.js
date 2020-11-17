@@ -4,23 +4,24 @@ import './AddItems.css';
 
 const AddItems = () => {
   const listContext = useContext(ListContext);
-
-  const [formData, setFormData] = useState({
+  const formStarter = {
     itemName: '',
     lastEstimate: 7,
     lastPurchased: null,
     userToken: listContext.token,
     dateCreated: new Date(),
     numberOfPurchases: 0,
-  });
+  };
 
-  const [error, setError] = useState(false);
+  const [formData, setFormData] = useState(formStarter);
+
   const [errorMessage, setErrorMessage] = useState(null);
 
   const itemsRef = listContext.itemsRef;
 
   // handle change of each form input, set state
   const updateInput = (e) => {
+    errorMessage && setErrorMessage(null);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -42,21 +43,24 @@ const AddItems = () => {
     event.preventDefault();
     parseInt(formData.lastEstimate);
 
-    if (compareItems(formData.itemName)) {
-      itemsRef
-        .add(formData)
-        .then(function () {
-          setFormData({ itemName: '' });
-          alert('submitted');
-        })
-        // catches & logs any errors
-        .catch(function (error) {
-          console.error('error adding item to the database!', error);
-        });
+    if (formData.itemName !== '') {
+      if (compareItems(formData.itemName)) {
+        itemsRef
+          .add(formData)
+          .then(function () {
+            setFormData(formStarter);
+            alert('submitted');
+          })
+          // catches & logs any errors
+          .catch(function (error) {
+            console.error('error adding item to the database!', error);
+          });
+      } else {
+        //TODO: change error messages to just one item in state.
+        setErrorMessage('This item already exists in the database!');
+      }
     } else {
-      //TODO: change error messages to just one item in state.
-      setError(true);
-      setErrorMessage('This item already exists in the database!');
+      setErrorMessage('Please enter an item');
     }
   };
 
@@ -69,7 +73,7 @@ const AddItems = () => {
           Item Name:
         </label>
         <input
-          className={error ? 'error' : ''}
+          className={errorMessage ? 'error' : ''}
           type="text"
           placeholder="Add your item here"
           name="itemName"
@@ -90,7 +94,7 @@ const AddItems = () => {
             type="radio"
             id="soon"
             name="lastEstimate"
-            defaultChecked
+            checked={formData.lastEstimate == 7}
             value="7"
             onChange={updateInput}
           />
@@ -101,6 +105,7 @@ const AddItems = () => {
             id="kinda-soon"
             name="lastEstimate"
             value="14"
+            checked={formData.lastEstimate == 14}
             onChange={updateInput}
           />
           <label htmlFor="kinda-soon"> Kinda Soon</label>
@@ -110,6 +115,7 @@ const AddItems = () => {
             id="not-soon"
             name="lastEstimate"
             value="30"
+            checked={formData.lastEstimate == 30}
             onChange={updateInput}
           />
           <label htmlFor="not-soon">Not Soon</label>
