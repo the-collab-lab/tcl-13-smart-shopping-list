@@ -4,14 +4,16 @@ import { BrowserRouter, useParams } from 'react-router-dom';
 
 export default function ItemDetail(props) {
   let currentList = useContext(ListContext);
-  // let currentItem = currentList.userList.filter(item => item.id = id)
-  let { params } = useParams();
-  console.log(props);
+
+  let { id } = useParams();
+
+  let currentItem = currentList.userList.find((item) => item.id == id);
+  console.log(currentItem);
 
   // useEffect(() => {
   //   console.log(params)
 
   // }, [params])
 
-  return <div>{/* {currentItem.itemName} */}</div>;
+  return <div>{currentItem.itemName}</div>;
 }
