@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { ListContext } from '../context/ListContext';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
-export default function ItemDetail(props) {
+export default function ItemDetail() {
   let currentList = useContext(ListContext);
 
   let { id } = useParams();
@@ -12,6 +12,10 @@ export default function ItemDetail(props) {
 
   return (
     <div>
+      <button>
+        {' '}
+        <Link to={'/view-list'}>Back to List</Link>
+      </button>
       <ul>
         <li> Name: {currentItem.itemName} </li>
         {/* TODO: fix from seconds to Date and the if property*/}
