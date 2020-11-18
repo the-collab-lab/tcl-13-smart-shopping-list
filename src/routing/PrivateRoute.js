@@ -5,7 +5,6 @@ import Nav from '../components/Nav';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const listContext = useContext(ListContext);
-  // const Component = props.component;
 
   return (
     <div>
