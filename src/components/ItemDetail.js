@@ -26,12 +26,11 @@ export default function ItemDetail() {
 
   return (
     <div>
-      <Link to={'/view-list'}>
+      <Link to={'/view-list'} aria-label="back arrow, return to list view">
         <ArrowBackIcon />
       </Link>
       <ul>
         <li> Name: {currentItem.itemName} </li>
-        {/* TODO: fix from seconds to Date and the if property*/}
         <li> Days Since Last Purchased: {timeSinceLastPurchase} </li>
         <li>
           {' '}
