@@ -11,6 +11,7 @@ import {
   FormLabel,
   Input,
   VisuallyHidden,
+  Flex,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 
@@ -46,25 +47,27 @@ export default function Welcome() {
   };
 
   return (
-    <Box w="100%" bg="cyan.600">
-      <Box h="30vh" pt="15vh">
-        <Link color="white" as={RouterLink} to="/new-list">
+    <Box w="100%" bg="brand.600" textAlign="center">
+      <Flex h="20vh" pt="5vh">
+        <Link as={RouterLink} to="/new-list">
           <VStack pos="absolute" left="50%" ml="-75px">
             <AddIcon
-              w="50px"
-              h="50px"
+              w="40px"
+              h="40px"
               bg="white"
-              color="black"
+              color="brand.900"
               p="10px"
               borderRadius="xl"
             />
-            <Text fontSize="xl">Create New List</Text>
+            <Text color="white" fontSize="xl">
+              Create New List
+            </Text>
           </VStack>
         </Link>
-      </Box>
+      </Flex>
 
-      <Box borderTopRadius="3.5rem" bg="white" fontSize="xl">
-        <Text pt="5%">
+      <Box borderTopRadius="3.5rem" bg="white">
+        <Text pt="5%" fontSize="xl">
           Join an existing shopping list by entering a three word token
         </Text>
         <FormControl onSubmit={handleJoinList}>
@@ -73,11 +76,9 @@ export default function Welcome() {
               <FormLabel htmlFor="tokenField"> Enter Token </FormLabel>
             </VisuallyHidden>
             <Input
+              variant="flushed"
               w="30%"
               textAlign="center"
-              border="none"
-              borderBottom="1px black solid"
-              borderRadius="none"
               className={error ? 'error' : ''}
               id="tokenField"
               placeholder="three word token"
@@ -87,17 +88,7 @@ export default function Welcome() {
               onChange={handleChange}
             />
             {errorMessage ? <p className="error">{errorMessage}</p> : null}
-            <Button
-              borderRadius="3xl"
-              bg="cyan.600"
-              color="white"
-              type="submit"
-              px="45px"
-              py="25px"
-              fontSize="2xl"
-            >
-              Join List
-            </Button>
+            <Button>Join List</Button>
           </VStack>
         </FormControl>
       </Box>
