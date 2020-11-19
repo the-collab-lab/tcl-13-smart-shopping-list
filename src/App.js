@@ -1,21 +1,35 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 import Router from './routing/Router';
 import ListContextProvider from './context/ListContext';
+import { ChakraProvider, extendTheme, Heading, Center } from '@chakra-ui/react';
+
+const theme = extendTheme();
 
 function App() {
   return (
-    <BrowserRouter>
-      <ListContextProvider>
-        <div className="App">
-          <header className="App-header">
-            <h1>Welcome to your Shopping List!</h1>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <ListContextProvider>
+          <header>
+            <Heading
+              as="h1"
+              bg="cyan.600"
+              w="100%"
+              color="white"
+              align="center"
+              h="10vh"
+              pt="2vh"
+            >
+              Smart List
+            </Heading>
           </header>
-          <Router />
-        </div>
-      </ListContextProvider>
-    </BrowserRouter>
+          <Center align="center" w="100%">
+            <Router />
+          </Center>
+        </ListContextProvider>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 

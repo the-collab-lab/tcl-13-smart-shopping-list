@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { ListContext } from '../context/ListContext';
-import './Welcome.css';
+import { Link, Button, Box, Text, VStack } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
 
 export default function Welcome() {
   const [userInputToken, setUserInputToken] = useState('');
@@ -35,14 +36,22 @@ export default function Welcome() {
   };
 
   return (
-    <div>
-      <h1>Welcome to your Smart Shopping List!</h1>
-
-      {/* For accessibility reasons this is a link, but can be styled as button */}
-
-      <Link to="/new-list">Create a new List</Link>
-
-      <p>- or -</p>
+    <Box w="100%">
+      <Box bg="cyan.600" h="30vh" pt="15vh">
+        <Link color="white" as={RouterLink} to="/new-list">
+          <VStack pos="absolute" left="50%" ml="-50px">
+            <AddIcon
+              w="50px"
+              h="50px"
+              bg="white"
+              color="black"
+              p="10px"
+              borderRadius="xl"
+            />
+            <Text>Create New List</Text>
+          </VStack>
+        </Link>
+      </Box>
 
       <p>Join an existing shopping list by entering a three word token</p>
       <form onSubmit={handleJoinList}>
@@ -59,6 +68,6 @@ export default function Welcome() {
         {errorMessage ? <p className="error">{errorMessage}</p> : null}
         <button type="submit">Join an existing list</button>
       </form>
-    </div>
+    </Box>
   );
 }
