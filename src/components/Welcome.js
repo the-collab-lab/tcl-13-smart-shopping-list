@@ -36,8 +36,8 @@ export default function Welcome() {
   };
 
   return (
-    <Box w="100%">
-      <Box bg="cyan.600" h="30vh" pt="15vh">
+    <Box w="100%" bg="cyan.600">
+      <Box h="30vh" pt="15vh">
         <Link color="white" as={RouterLink} to="/new-list">
           <VStack pos="absolute" left="50%" ml="-50px">
             <AddIcon
@@ -53,21 +53,23 @@ export default function Welcome() {
         </Link>
       </Box>
 
-      <p>Join an existing shopping list by entering a three word token</p>
-      <form onSubmit={handleJoinList}>
-        <label htmlFor="tokenField"> Share Token </label>
-        <input
-          className={error ? 'error' : ''}
-          id="tokenField"
-          placeholder="three word token"
-          type="text"
-          aria-label="Enter your three word token"
-          value={userInputToken}
-          onChange={handleChange}
-        ></input>
-        {errorMessage ? <p className="error">{errorMessage}</p> : null}
-        <button type="submit">Join an existing list</button>
-      </form>
+      <Box borderTopRadius="3.5rem" bg="white">
+        <p>Join an existing shopping list by entering a three word token</p>
+        <form onSubmit={handleJoinList}>
+          <label htmlFor="tokenField"> Share Token </label>
+          <input
+            className={error ? 'error' : ''}
+            id="tokenField"
+            placeholder="three word token"
+            type="text"
+            aria-label="Enter your three word token"
+            value={userInputToken}
+            onChange={handleChange}
+          ></input>
+          {errorMessage ? <p className="error">{errorMessage}</p> : null}
+          <button type="submit">Join an existing list</button>
+        </form>
+      </Box>
     </Box>
   );
 }
