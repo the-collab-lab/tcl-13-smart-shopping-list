@@ -12,7 +12,7 @@ export default {
     mono: 'monospace',
   },
 
-  fontSizes: {
+  fontSize: {
     xs: '12px',
     sm: '14px',
     md: '16px',
