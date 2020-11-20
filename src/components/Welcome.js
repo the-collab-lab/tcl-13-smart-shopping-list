@@ -12,6 +12,11 @@ import {
   Input,
   VisuallyHidden,
   Flex,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Center,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 
@@ -78,10 +83,17 @@ export default function Welcome() {
                 value={userInputToken}
                 onChange={handleChange}
               />
-
-              {/* Error message not working */}
               {errorMessage ? (
-                <Text textStyle="error">{errorMessage}</Text>
+                // <Text textStyle="error">{errorMessage}</Text>
+                <Center>
+                  <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle>Token is not valid.</AlertTitle>
+                    <AlertDescription>
+                      Please try again or create a new list.
+                    </AlertDescription>
+                  </Alert>
+                </Center>
               ) : null}
               <Button type="submit">Join List</Button>
             </VStack>

@@ -54,9 +54,7 @@ const smartListTheme = extendTheme({
       },
     },
     error: {
-      color: 'brand.400',
-      border: '1px solid red',
-      borderColor: 'brand.400',
+      textAlign: 'center',
     },
   },
   components: {
