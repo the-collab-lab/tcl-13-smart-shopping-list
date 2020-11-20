@@ -53,9 +53,6 @@ const smartListTheme = extendTheme({
         bg: 'brand.900',
       },
     },
-    error: {
-      textAlign: 'center',
-    },
   },
   components: {
     Button: {

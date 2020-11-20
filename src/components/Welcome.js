@@ -11,7 +11,6 @@ import {
   FormLabel,
   Input,
   VisuallyHidden,
-  Flex,
   Alert,
   AlertDescription,
   AlertIcon,
@@ -84,7 +83,6 @@ export default function Welcome() {
                 onChange={handleChange}
               />
               {errorMessage ? (
-                // <Text textStyle="error">{errorMessage}</Text>
                 <Center>
                   <Alert status="error">
                     <AlertIcon />
