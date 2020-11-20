@@ -60,30 +60,32 @@ export default function Welcome() {
           Join an existing shopping list by entering a three word token
         </Text>
 
-        <FormControl onSubmit={handleJoinList}>
-          <VStack spacing="3%">
-            <VisuallyHidden>
-              <FormLabel htmlFor="tokenField"> Enter Token </FormLabel>
-            </VisuallyHidden>
-            <Input
-              variant="flushed"
-              w="30%"
-              textAlign="center"
-              className={error ? 'error' : ''}
-              id="tokenField"
-              placeholder="three word token"
-              type="text"
-              aria-label="Enter your three word token"
-              value={userInputToken}
-              onChange={handleChange}
-            />
+        <FormControl>
+          <form onSubmit={handleJoinList}>
+            <VStack spacing="3%">
+              <VisuallyHidden>
+                <FormLabel htmlFor="tokenField"> Enter Token </FormLabel>
+              </VisuallyHidden>
+              <Input
+                variant="flushed"
+                w="30%"
+                textAlign="center"
+                textStyle={error ? 'error' : ''}
+                id="tokenField"
+                placeholder="three word token"
+                type="text"
+                aria-label="Enter your three word token"
+                value={userInputToken}
+                onChange={handleChange}
+              />
 
-            {/* Error message not working */}
-            {errorMessage ? (
-              <Text textStyle="error">{errorMessage}</Text>
-            ) : null}
-            <Button>Join List</Button>
-          </VStack>
+              {/* Error message not working */}
+              {errorMessage ? (
+                <Text textStyle="error">{errorMessage}</Text>
+              ) : null}
+              <Button type="submit">Join List</Button>
+            </VStack>
+          </form>
         </FormControl>
       </Box>
     </Box>
