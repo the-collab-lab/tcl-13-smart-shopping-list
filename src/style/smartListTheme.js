@@ -1,14 +1,22 @@
 import { extendTheme } from '@chakra-ui/react';
 
+// ReUseable Styles
+// List item cards, buttons, header, inputs, rounded white corner boxes,
+
 const smartListTheme = extendTheme({
   //app custom color references
   colors: {
     brand: {
       300: '#76E4F7',
       600: '#00A3C4',
-      // ...
       900: '#065666',
     },
+  },
+  fontWeights: {
+    normal: 400,
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
   },
   textStyles: {
     h1: {
@@ -18,13 +26,20 @@ const smartListTheme = extendTheme({
       fontWeight: 'bold',
       lineHeight: '110%',
       letterSpacing: '-2%',
+      fontFamily: 'Montserrat',
+      background: 'brand.600',
+      width: '100%',
+      textAlign: 'center',
+      height: '10vh',
+      paddingTop: '2vh',
     },
   },
   components: {
     Button: {
       // 1. We can update the base styles
       baseStyle: {
-        fontWeight: 'semibold',
+        fontWeight: 'normal',
+        fontFamily: 'Montserrat',
         bg: 'cyan.600',
         borderRadius: '3xl',
         color: 'white',
