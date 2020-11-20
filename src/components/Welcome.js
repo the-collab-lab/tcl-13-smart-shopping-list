@@ -47,26 +47,26 @@ export default function Welcome() {
   };
 
   return (
-    <Box w="100%" bg="brand.600" textAlign="center">
-      <Flex h="20vh" pt="5vh">
-        <Link as={RouterLink} to="/new-list">
-          <VStack pos="absolute" left="50%" ml="-75px">
-            <AddIcon
-              w="40px"
-              h="40px"
-              bg="white"
-              color="brand.900"
-              p="10px"
-              borderRadius="xl"
-            />
-            <Text color="white" fontSize="xl">
-              Create New List
-            </Text>
-          </VStack>
-        </Link>
-      </Flex>
+    <Box bg="brand.600">
+      <Box textStyle="roundedCorners">
+        <Flex h="20vh" pt="5vh">
+          <Link as={RouterLink} to="/new-list">
+            <VStack pos="absolute" left="50%" ml="-75px">
+              <AddIcon
+                w="40px"
+                h="40px"
+                bg="brand.600"
+                color="brand.100"
+                p="10px"
+                borderRadius="xl"
+                border="1.5px solid black"
+                borderColor="brand.900"
+              />
+              <Text fontSize="xl">Create New List</Text>
+            </VStack>
+          </Link>
+        </Flex>
 
-      <Box borderTopRadius="3.5rem" bg="white">
         <Text pt="5%" fontSize="xl">
           Join an existing shopping list by entering a three word token
         </Text>

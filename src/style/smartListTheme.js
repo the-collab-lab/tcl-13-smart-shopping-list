@@ -7,6 +7,7 @@ const smartListTheme = extendTheme({
   //app custom color references
   colors: {
     brand: {
+      100: '#FFFFFF',
       300: '#76E4F7',
       600: '#00A3C4',
       900: '#065666',
@@ -22,27 +23,30 @@ const smartListTheme = extendTheme({
     h1: {
       // you can also use responsive styles
       fontSize: '48px',
-      color: 'white',
-      fontWeight: 'bold',
+      color: 'brand.100',
       lineHeight: '110%',
       letterSpacing: '-2%',
       fontFamily: 'Montserrat',
       background: 'brand.600',
       width: '100%',
       textAlign: 'center',
-      height: '10vh',
-      paddingTop: '2vh',
+      height: '15vh',
+      paddingTop: '3.75vh',
+    },
+    roundedCorners: {
+      borderTopRadius: '3.5rem',
+      background: 'brand.100',
     },
   },
   components: {
     Button: {
       // 1. We can update the base styles
       baseStyle: {
-        fontWeight: 'normal',
+        fontWeight: 'semiBold',
         fontFamily: 'Montserrat',
         bg: 'cyan.600',
         borderRadius: '3xl',
-        color: 'white',
+        color: 'brand.100',
         type: 'submit',
         fontSize: '2xl',
       },
@@ -66,7 +70,7 @@ const smartListTheme = extendTheme({
         },
         filled: {
           bg: 'brand.600',
-          color: 'white',
+          color: 'brand.100',
         },
       },
     },
