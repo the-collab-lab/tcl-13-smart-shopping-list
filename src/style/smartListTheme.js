@@ -8,6 +8,7 @@ const smartListTheme = extendTheme({
   colors: {
     brand: {
       100: '#FFFFFF',
+      400: '#E53E3E',
       300: '#76E4F7',
       600: '#00A3C4',
       900: '#065666',
@@ -51,6 +52,11 @@ const smartListTheme = extendTheme({
       _hover: {
         bg: 'brand.900',
       },
+    },
+    error: {
+      color: 'brand.400',
+      border: '1px solid red',
+      borderColor: 'brand.400',
     },
   },
   components: {

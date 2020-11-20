@@ -59,6 +59,7 @@ export default function Welcome() {
         <Text>
           Join an existing shopping list by entering a three word token
         </Text>
+
         <FormControl onSubmit={handleJoinList}>
           <VStack spacing="3%">
             <VisuallyHidden>
@@ -76,7 +77,11 @@ export default function Welcome() {
               value={userInputToken}
               onChange={handleChange}
             />
-            {errorMessage ? <p className="error">{errorMessage}</p> : null}
+
+            {/* Error message not working */}
+            {errorMessage ? (
+              <Text textStyle="error">{errorMessage}</Text>
+            ) : null}
             <Button>Join List</Button>
           </VStack>
         </FormControl>
