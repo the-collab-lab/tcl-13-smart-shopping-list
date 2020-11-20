@@ -46,6 +46,11 @@ const smartListTheme = extendTheme({
       borderRadius: 'xl',
       border: '1.5px solid brand.900',
       color: 'brand.100',
+      marginTop: '3%',
+      marginBottom: '10px',
+      _hover: {
+        bg: 'brand.900',
+      },
     },
   },
   components: {
@@ -66,8 +71,8 @@ const smartListTheme = extendTheme({
           bg: props.colorMode === 'dark' ? 'brand.600' : 'brand.600',
           _hover: { bg: 'brand.900' },
           bgImage: 'linear-gradient(red.500, yellow.500)',
-          px: '45px',
-          py: '25px',
+          px: '35px',
+          py: '20px',
           fontSize: '2xl',
         }),
       },

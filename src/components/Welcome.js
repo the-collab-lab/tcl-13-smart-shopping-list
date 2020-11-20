@@ -49,18 +49,14 @@ export default function Welcome() {
   return (
     <Box bg="brand.600">
       <Box textStyle="roundedCorners">
-        <Flex h="20vh" pt="5vh">
-          <Link as={RouterLink} to="/new-list">
-            <VStack pos="absolute" left="50%" ml="-75px">
-              <AddIcon textStyle="AddIcon" />
-              <Text>Create New List</Text>
-            </VStack>
-          </Link>
-        </Flex>
+        <Link as={RouterLink} to="/new-list">
+          <AddIcon textStyle="AddIcon" />
+          <Text>Create New List</Text>
+        </Link>
 
-        <Text> - or - </Text>
+        <Text my="3%"> - or - </Text>
 
-        <Text pt="3%">
+        <Text>
           Join an existing shopping list by entering a three word token
         </Text>
         <FormControl onSubmit={handleJoinList}>
