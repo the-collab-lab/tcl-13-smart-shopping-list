@@ -36,6 +36,16 @@ const smartListTheme = extendTheme({
     roundedCorners: {
       borderTopRadius: '3.5rem',
       background: 'brand.100',
+      textAlign: 'center',
+    },
+    AddIcon: {
+      width: '40px',
+      height: '40px',
+      background: 'brand.600',
+      padding: '10px',
+      borderRadius: 'xl',
+      border: '1.5px solid brand.900',
+      color: 'brand.100',
     },
   },
   components: {
@@ -72,6 +82,12 @@ const smartListTheme = extendTheme({
           bg: 'brand.600',
           color: 'brand.100',
         },
+      },
+    },
+    Text: {
+      baseStyle: {
+        fontFamily: 'Montserrat',
+        fontSize: 'xl',
       },
     },
   },

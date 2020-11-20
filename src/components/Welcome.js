@@ -52,22 +52,15 @@ export default function Welcome() {
         <Flex h="20vh" pt="5vh">
           <Link as={RouterLink} to="/new-list">
             <VStack pos="absolute" left="50%" ml="-75px">
-              <AddIcon
-                w="40px"
-                h="40px"
-                bg="brand.600"
-                color="brand.100"
-                p="10px"
-                borderRadius="xl"
-                border="1.5px solid black"
-                borderColor="brand.900"
-              />
-              <Text fontSize="xl">Create New List</Text>
+              <AddIcon textStyle="AddIcon" />
+              <Text>Create New List</Text>
             </VStack>
           </Link>
         </Flex>
 
-        <Text pt="5%" fontSize="xl">
+        <Text> - or - </Text>
+
+        <Text pt="3%">
           Join an existing shopping list by entering a three word token
         </Text>
         <FormControl onSubmit={handleJoinList}>
