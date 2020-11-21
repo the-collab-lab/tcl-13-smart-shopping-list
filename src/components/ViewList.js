@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
+import { Button } from '@chakra-ui/react';
 
 import './ViewList.css';
 
@@ -130,6 +131,7 @@ const ViewList = () => {
         {currentList.userList.length > 0 ? (
           filteredList.map((element, index) => (
             <li
+              style={{ margin: '10px', padding: '5px' }}
               key={element.id}
               className={element.textEstimate}
               aria-label={`${element.itemName} needs to be purchased ${element.textEstimate}`}
@@ -144,12 +146,24 @@ const ViewList = () => {
                 checked={element.isPurchased}
               ></input>{' '}
               {element.itemName}
-              <button onClick={handleDelete} id={element.id}>
+              <Button
+                onClick={handleDelete}
+                id={element.id}
+                fontSize="l"
+                padding="10px"
+                margin="0px 5px"
+                borderRadius="10px"
+              >
                 Delete
-              </button>
-              <button>
+              </Button>
+              <Button
+                fontSize="l"
+                padding="10px"
+                margin="0px 5px"
+                borderRadius="10px"
+              >
                 <Link to={`/item/${element.id}`}>Details</Link>
-              </button>
+              </Button>
             </li>
           ))
         ) : (

@@ -4,10 +4,11 @@ import './App.css';
 import Router from './routing/Router';
 import ListContextProvider from './context/ListContext';
 import { ChakraProvider } from '@chakra-ui/react';
+import smartListTheme from './style/smartListTheme';
 
 function App() {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={smartListTheme}>
       <BrowserRouter>
         <ListContextProvider>
           <div className="App">

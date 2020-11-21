@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ListContext } from '../context/ListContext';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { IconButton } from '@chakra-ui/react';
 
 export default function ItemDetail() {
   let currentList = useContext(ListContext);
@@ -12,7 +13,6 @@ export default function ItemDetail() {
 
   // determine number of days since last purchase date
   const timeNow = new Date().getTime() / 1000;
-  console.log(timeNow);
   let timeSinceLastPurchase;
   // if lastPurchased dosen't exist, set daysUntilPurchase = today-date created
   if (currentItem.lastPurchased) {
@@ -22,12 +22,17 @@ export default function ItemDetail() {
   } else {
     timeSinceLastPurchase = 'N/A';
   }
-  console.log(currentItem);
 
   return (
     <div>
-      <Link to={'/view-list'} aria-label="back arrow, return to list view">
-        <ArrowBackIcon />
+      <Link to={'/view-list'}>
+        <IconButton
+          variant="outline"
+          colorScheme="cyan"
+          aria-label="back arrow, return to list view"
+          fontSize="20px"
+          icon={<ArrowBackIcon />}
+        ></IconButton>
       </Link>
       <ul>
         <li> Name: {currentItem.itemName} </li>
