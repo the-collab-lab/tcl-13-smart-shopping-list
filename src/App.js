@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from './routing/Router';
 import ListContextProvider from './context/ListContext';
+
 import {
   ChakraProvider,
   extendTheme,
@@ -9,6 +10,7 @@ import {
   Center,
   Box,
 } from '@chakra-ui/react';
+
 import smartListTheme from './style/smartListTheme';
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
     <ChakraProvider theme={smartListTheme}>
       <BrowserRouter>
         <ListContextProvider>
+
           <header>
             <Heading as="h1" textStyle="h1">
               <Box as="span" fontWeight="semiBold">
@@ -28,6 +31,7 @@ function App() {
           </header>
 
           <Router />
+
         </ListContextProvider>
       </BrowserRouter>
     </ChakraProvider>

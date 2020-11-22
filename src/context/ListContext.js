@@ -59,8 +59,6 @@ const ListContextProvider = (props) => {
     const daysUntilPurchase = Math.ceil(lastEstimate - timeSinceLastPurchase);
     estimatedTimeframes.daysUntilPurchase = daysUntilPurchase;
 
-    console.log('days until purchase is :  ', daysUntilPurchase);
-    console.log(typeof daysUntilPurchase);
     // return text estimate of daysUntilNextPurchase
 
     if (numberOfPurchases === 1 || timeSinceLastPurchase > lastEstimate * 2) {
