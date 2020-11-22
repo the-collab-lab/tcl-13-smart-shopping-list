@@ -146,6 +146,7 @@ const ViewList = () => {
                 checked={element.isPurchased}
               ></input>{' '}
               {element.itemName}
+
               <Button
                 onClick={handleDelete}
                 id={element.id}
