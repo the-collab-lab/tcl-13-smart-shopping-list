@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ListContext } from '../context/ListContext';
 import { AddIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { IconButton, Box, Heading } from '@chakra-ui/react';
+import { IconButton, Box, Heading, Flex, Spacer } from '@chakra-ui/react';
 
 const Nav = () => {
   const listContext = useContext(ListContext);
@@ -17,6 +17,7 @@ const Nav = () => {
           <Box as="span" fontWeight="normal">
             List
           </Box>
+          {/* TODO: fix the spacing so the box is right aligned */}
           {listContext.token ? (
             <Box as="span">
               <NavLink to={'/add-items'}>
