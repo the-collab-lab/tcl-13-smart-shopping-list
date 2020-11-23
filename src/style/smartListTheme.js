@@ -8,8 +8,8 @@ const smartListTheme = extendTheme({
   colors: {
     brand: {
       100: '#FFFFFF',
-      400: '#E53E3E',
       300: '#76E4F7',
+      400: '#E53E3E',
       600: '#00A3C4',
       900: '#065666',
     },
@@ -28,7 +28,7 @@ const smartListTheme = extendTheme({
       lineHeight: '110%',
       letterSpacing: '-2%',
       fontFamily: 'Montserrat',
-      background: 'brand.600',
+      bgImage: 'linear-gradient(to bottom,#76E4F7, #00A3C4)',
       width: '100%',
       textAlign: 'center',
       height: '15vh',

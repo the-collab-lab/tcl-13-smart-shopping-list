@@ -76,7 +76,7 @@ export default function Welcome() {
                 textAlign="center"
                 textStyle={error ? 'error' : ''}
                 id="tokenField"
-                placeholder="three word token"
+                placeholder="Three Word Token"
                 type="text"
                 aria-label="Enter your three word token"
                 value={userInputToken}

@@ -2,8 +2,16 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
-import { Button, Box, Text, Input } from '@chakra-ui/react';
-
+import {
+  Button,
+  Box,
+  Text,
+  Input,
+  VisuallyHidden,
+  FormLabel,
+  IconButton,
+} from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
 import './ViewList.css';
 
 const ViewList = () => {
@@ -116,20 +124,33 @@ const ViewList = () => {
   return (
     <Box bg="brand.600">
       <Box textStyle="roundedCorners">
-        <Text>List Name</Text>
-        <label htmlFor="search"></label>
+        <Text as="h2" textStyle="h2">
+          List Name
+        </Text>
+        <VisuallyHidden>
+          <FormLabel htmlFor="search">Search</FormLabel>
+        </VisuallyHidden>
         <Input
-          variant="searchBox"
+          // variant="filled"
+          bgImage="linear-gradient(to right, #00A3C4, #76E4F7)"
           w="30%"
-          bg="black"
+          borderRadius="20px"
+          border="none"
           type="search"
           name="search"
           id="search"
+          placeholder="Search Your List"
+          aria-label="Search your list"
           value={filterValue}
           onChange={handleSearchChange}
         />
-        <label htmlFor="Clear" aria-label="Clear search bar"></label>
-        <button onClick={handleClearClick}>Clear</button>
+
+        <IconButton
+          colorScheme="blue"
+          aria-label="clear search bar"
+          icon={<CloseIcon />}
+          onClick={handleClearClick}
+        />
 
         <ul>
           {currentList.userList.length > 0 ? (
