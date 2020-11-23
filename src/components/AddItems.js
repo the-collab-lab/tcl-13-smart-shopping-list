@@ -106,7 +106,15 @@ const AddItems = () => {
               value={formData.itemName}
               onChange={updateInput}
             />
-            {errorMessage ? <p className="error">{errorMessage}</p> : null}
+            {errorMessage ? (
+              <Center>
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertTitle>{errorMessage}</AlertTitle>
+                  <AlertDescription>Please add a valid item.</AlertDescription>
+                </Alert>
+              </Center>
+            ) : null}
           </Box>
           <Box my={10} p={4}>
             <FormLabel textAlign="center">Time Frame</FormLabel>
