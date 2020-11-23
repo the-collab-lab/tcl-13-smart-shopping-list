@@ -128,7 +128,7 @@ const AddItems = () => {
                 {' '}
                 How soon will you buy this again?
               </FormLabel>
-              <RadioGroup defaultValue="1">
+              <RadioGroup defaultValue="7">
                 <Stack spacing={5}>
                   <Radio
                     id="soon"
