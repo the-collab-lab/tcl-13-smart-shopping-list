@@ -4,7 +4,6 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { IconButton } from '@chakra-ui/react';
 
-// TODO: make pretty
 export default function ItemDetail() {
   let currentList = useContext(ListContext);
 

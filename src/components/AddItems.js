@@ -74,7 +74,6 @@ const AddItems = () => {
             console.error('error adding item to the database!', error);
           });
       } else {
-        //TODO: change error messages to just one item in state.
         setErrorMessage('This item already exists in the database!');
       }
     } else {
