@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
-import { Button } from '@chakra-ui/react';
+import { Button, Box, Text, Input } from '@chakra-ui/react';
 
 import './ViewList.css';
 
@@ -114,67 +114,70 @@ const ViewList = () => {
   }, [filterValue]);
 
   return (
-    <div>
-      <h2>View List</h2>
-      <label htmlFor="search">Type to Search</label>
-      <input
-        type="search"
-        name="search"
-        id="search"
-        value={filterValue}
-        onChange={handleSearchChange}
-      />
-      <label htmlFor="Clear" aria-label="Clear search bar"></label>
-      <button onClick={handleClearClick}>Clear</button>
+    <Box bg="brand.600">
+      <Box textStyle="roundedCorners">
+        <Text>List Name</Text>
+        <label htmlFor="search"></label>
+        <Input
+          variant="search"
+          sizes="sm"
+          type="search"
+          name="search"
+          id="search"
+          value={filterValue}
+          onChange={handleSearchChange}
+        />
+        <label htmlFor="Clear" aria-label="Clear search bar"></label>
+        <button onClick={handleClearClick}>Clear</button>
 
-      <ul>
-        {currentList.userList.length > 0 ? (
-          filteredList.map((element, index) => (
-            <li
-              style={{ margin: '10px', padding: '5px' }}
-              key={element.id}
-              className={element.textEstimate}
-              aria-label={`${element.itemName} needs to be purchased ${element.textEstimate}`}
-            >
-              <input
-                type="checkbox"
-                name={element.itemName}
-                id={element.id}
-                value={element.itemName}
-                className="purchased"
-                onChange={handleCheck}
-                checked={element.isPurchased}
-              ></input>{' '}
-              {element.itemName}
-
-              <Button
-                onClick={handleDelete}
-                id={element.id}
-                fontSize="l"
-                padding="10px"
-                margin="0px 5px"
-                borderRadius="10px"
+        <ul>
+          {currentList.userList.length > 0 ? (
+            filteredList.map((element) => (
+              <li
+                style={{ margin: '10px', padding: '5px' }}
+                key={element.id}
+                className={element.textEstimate}
+                aria-label={`${element.itemName} needs to be purchased ${element.textEstimate}`}
               >
-                Delete
-              </Button>
-              <Button
-                fontSize="l"
-                padding="10px"
-                margin="0px 5px"
-                borderRadius="10px"
-              >
-                <Link to={`/item/${element.id}`}>Details</Link>
-              </Button>
+                <input
+                  type="checkbox"
+                  name={element.itemName}
+                  id={element.id}
+                  value={element.itemName}
+                  className="purchased"
+                  onChange={handleCheck}
+                  checked={element.isPurchased}
+                ></input>{' '}
+                {element.itemName}
+                <Button
+                  onClick={handleDelete}
+                  id={element.id}
+                  fontSize="l"
+                  padding="10px"
+                  margin="0px 5px"
+                  borderRadius="10px"
+                >
+                  Delete
+                </Button>
+                <Button
+                  fontSize="l"
+                  padding="10px"
+                  margin="0px 5px"
+                  borderRadius="10px"
+                >
+                  <Link to={`/item/${element.id}`}>Details</Link>
+                </Button>
+              </li>
+            ))
+          ) : (
+            <li>
+              <p> You don't have any items</p>
+              <Link to="/add-items">Add your first item!</Link>
             </li>
-          ))
-        ) : (
-          <li>
-            <p> You don't have any items</p>
-            <Link to="/add-items">Add your first item!</Link>
-          </li>
-        )}
-      </ul>
-    </div>
+          )}
+        </ul>
+      </Box>
+    </Box>
   );
 };
 

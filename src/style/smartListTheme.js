@@ -79,6 +79,11 @@ const smartListTheme = extendTheme({
       },
     },
     Input: {
+      sizes: {
+        sm: {
+          w: '30%',
+        },
+      },
       variants: {
         flushed: {
           borderBottom: '1px black solid',
@@ -87,6 +92,12 @@ const smartListTheme = extendTheme({
         filled: {
           bg: 'brand.600',
           color: 'brand.100',
+        },
+        search: {
+          bg: 'brand.900',
+          color: 'brand.100',
+          borderRadius: '20px',
+          w: '30px',
         },
       },
     },
