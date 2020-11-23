@@ -119,8 +119,9 @@ const ViewList = () => {
         <Text>List Name</Text>
         <label htmlFor="search"></label>
         <Input
-          variant="search"
-          sizes="sm"
+          variant="searchBox"
+          w="30%"
+          bg="black"
           type="search"
           name="search"
           id="search"
