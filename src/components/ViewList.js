@@ -6,7 +6,7 @@ import { Button } from '@chakra-ui/react';
 
 import './ViewList.css';
 
-const ViewList = () => {
+const ViewList = (props) => {
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
 
@@ -115,7 +115,7 @@ const ViewList = () => {
 
   return (
     <div>
-      <h2>View List</h2>
+      <h2>List Name</h2>
       <label htmlFor="search">Type to Search</label>
       <input
         type="search"
@@ -146,7 +146,6 @@ const ViewList = () => {
                 checked={element.isPurchased}
               ></input>{' '}
               {element.itemName}
-
               <Button
                 onClick={handleDelete}
                 id={element.id}

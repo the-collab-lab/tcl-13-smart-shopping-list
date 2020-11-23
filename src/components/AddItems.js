@@ -19,6 +19,8 @@ import {
 
 const AddItems = () => {
   const listContext = useContext(ListContext);
+  const itemsRef = listContext.itemsRef;
+
   const formStarter = {
     itemName: '',
     lastEstimate: 7,
@@ -29,10 +31,7 @@ const AddItems = () => {
   };
 
   const [formData, setFormData] = useState(formStarter);
-
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const itemsRef = listContext.itemsRef;
 
   // handle change of each form input, set state
   const updateInput = (e) => {
@@ -131,7 +130,7 @@ const AddItems = () => {
                   <Radio
                     id="soon"
                     name="lastEstimate"
-                    checked={formData.lastEstimate == 7}
+                    checked={formData.lastEstimate === 7}
                     value="7"
                     onChange={updateInput}
                   >
@@ -141,7 +140,7 @@ const AddItems = () => {
                     id="kinda-soon"
                     name="lastEstimate"
                     value="14"
-                    checked={formData.lastEstimate == 14}
+                    checked={formData.lastEstimate === 14}
                     onChange={updateInput}
                   >
                     Kinda Soon
@@ -150,7 +149,7 @@ const AddItems = () => {
                     id="not-soon"
                     name="lastEstimate"
                     value="30"
-                    checked={formData.lastEstimate == 30}
+                    checked={formData.lastEstimate === 30}
                     onChange={updateInput}
                   >
                     Not Soon
