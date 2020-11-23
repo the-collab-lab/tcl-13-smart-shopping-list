@@ -12,7 +12,7 @@ const Nav = () => {
             <IconButton
               variant="outline"
               colorScheme="cyan"
-              aria-label="back arrow, return to list view"
+              aria-label="add icon, takes to add items"
               fontSize="20px"
               icon={<AddIcon />}
             ></IconButton>
@@ -21,7 +21,7 @@ const Nav = () => {
             <IconButton
               variant="outline"
               colorScheme="cyan"
-              aria-label="back arrow, return to list view"
+              aria-label="hamburger icon, takes to list view"
               fontSize="20px"
               icon={<HamburgerIcon />}
             ></IconButton>
