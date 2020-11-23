@@ -1,7 +1,23 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { ListContext } from '../context/ListContext';
-import './Welcome.css';
+import {
+  Link,
+  Button,
+  Box,
+  Text,
+  VStack,
+  FormControl,
+  FormLabel,
+  Input,
+  VisuallyHidden,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Center,
+} from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
 
 export default function Welcome() {
   const [userInputToken, setUserInputToken] = useState('');
@@ -35,30 +51,53 @@ export default function Welcome() {
   };
 
   return (
-    <div>
-      <h1>Welcome to your Smart Shopping List!</h1>
+    <Box bg="brand.600">
+      <Box textStyle="roundedCorners">
+        <Link as={RouterLink} to="/new-list">
+          <AddIcon textStyle="AddIcon" />
+          <Text>Create New List</Text>
+        </Link>
 
-      {/* For accessibility reasons this is a link, but can be styled as button */}
+        <Text my="3%"> - or - </Text>
 
-      <Link to="/new-list">Create a new List</Link>
+        <Text>
+          Join an existing shopping list by entering a three word token
+        </Text>
 
-      <p>- or -</p>
-
-      <p>Join an existing shopping list by entering a three word token</p>
-      <form onSubmit={handleJoinList}>
-        <label htmlFor="tokenField"> Share Token </label>
-        <input
-          className={error ? 'error' : ''}
-          id="tokenField"
-          placeholder="three word token"
-          type="text"
-          aria-label="Enter your three word token"
-          value={userInputToken}
-          onChange={handleChange}
-        ></input>
-        {errorMessage ? <p className="error">{errorMessage}</p> : null}
-        <button type="submit">Join an existing list</button>
-      </form>
-    </div>
+        <FormControl>
+          <form onSubmit={handleJoinList}>
+            <VStack spacing="3%">
+              <VisuallyHidden>
+                <FormLabel htmlFor="tokenField"> Enter Token </FormLabel>
+              </VisuallyHidden>
+              <Input
+                variant="flushed"
+                w="30%"
+                textAlign="center"
+                textStyle={error ? 'error' : ''}
+                id="tokenField"
+                placeholder="three word token"
+                type="text"
+                aria-label="Enter your three word token"
+                value={userInputToken}
+                onChange={handleChange}
+              />
+              {errorMessage ? (
+                <Center>
+                  <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle>Token is not valid.</AlertTitle>
+                    <AlertDescription>
+                      Please try again or create a new list.
+                    </AlertDescription>
+                  </Alert>
+                </Center>
+              ) : null}
+              <Button type="submit">Join List</Button>
+            </VStack>
+          </form>
+        </FormControl>
+      </Box>
+    </Box>
   );
 }

@@ -13,7 +13,6 @@ const Router = () => {
   // If there's no user token, Add Items and View List redirects to Welcome
 
   return (
-    <div>
       <Switch>
         {/*if users is not logged in, show the welcome component or new list*/}
         <PublicRoute component={Welcome} path="/" exact />
@@ -25,7 +24,6 @@ const Router = () => {
         {/*if no routes match*/}
         <Route component={NoMatch} />
       </Switch>
-    </div>
   );
 };
 

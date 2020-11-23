@@ -115,7 +115,7 @@ const ViewList = () => {
 
   return (
     <div>
-      <h1>View List</h1>
+      <h2>View List</h2>
       <label htmlFor="search">Type to Search</label>
       <input
         type="search"
