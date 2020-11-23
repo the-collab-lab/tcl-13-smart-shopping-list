@@ -21,7 +21,7 @@ const Nav = () => {
             <Box as="span">
               <NavLink to={'/add-items'}>
                 <IconButton
-                  colorScheme="cyan"
+                  color="white"
                   aria-label="add icon, takes to add items"
                   fontSize="20px"
                   icon={<AddIcon />}
@@ -29,7 +29,7 @@ const Nav = () => {
               </NavLink>
               <NavLink to={'/view-list'}>
                 <IconButton
-                  colorScheme="cyan"
+                  color="white"
                   aria-label="hamburger icon, takes to list view"
                   fontSize="20px"
                   icon={<HamburgerIcon />}
