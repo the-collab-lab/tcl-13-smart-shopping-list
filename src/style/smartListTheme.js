@@ -34,6 +34,14 @@ const smartListTheme = extendTheme({
       height: '15vh',
       paddingTop: '3.75vh',
     },
+    h2: {
+      fontSize: '24px',
+      color: 'gray.900',
+      fontFamily: 'Montserrat',
+      width: '100%',
+      textAlign: 'center',
+      paddingTop: '3.75vh',
+    },
     roundedCorners: {
       borderTopRadius: '3.5rem',
       background: 'brand.100',

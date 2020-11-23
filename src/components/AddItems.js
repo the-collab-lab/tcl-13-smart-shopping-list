@@ -1,6 +1,24 @@
 import React, { useState, useContext } from 'react';
 import { ListContext } from '../context/ListContext';
-import './AddItems.css';
+import {
+  Link,
+  Button,
+  Box,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  VisuallyHidden,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Center,
+  Stack,
+  Radio,
+  RadioGroup,
+  Vstack,
+} from '@chakra-ui/react';
 
 const AddItems = () => {
   const listContext = useContext(ListContext);
@@ -65,66 +83,85 @@ const AddItems = () => {
   };
 
   return (
-    <div>
-      <h1>Add Your Items!</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="label-1" htmlFor="item-name">
-          {' '}
-          Item Name:
-        </label>
-        <input
-          className={errorMessage ? 'error' : ''}
-          type="text"
-          placeholder="Add your item here"
-          name="itemName"
-          value={formData.itemName}
-          onChange={updateInput}
-        />
-        {errorMessage ? <p className="error">{errorMessage}</p> : null}
-        <br />
-        <br />
-        <fieldset className="fieldset">
-          <legend>Time Frame</legend>
-          <label htmlFor="lastEstimate">
-            {' '}
-            How soon will you buy this again?
-          </label>
-          <br />
-          <input
-            type="radio"
-            id="soon"
-            name="lastEstimate"
-            checked={formData.lastEstimate == 7}
-            value="7"
-            onChange={updateInput}
-          />
-          <label htmlFor="soon"> Soon</label>
-          <br />
-          <input
-            type="radio"
-            id="kinda-soon"
-            name="lastEstimate"
-            value="14"
-            checked={formData.lastEstimate == 14}
-            onChange={updateInput}
-          />
-          <label htmlFor="kinda-soon"> Kinda Soon</label>
-          <br />
-          <input
-            type="radio"
-            id="not-soon"
-            name="lastEstimate"
-            value="30"
-            checked={formData.lastEstimate == 30}
-            onChange={updateInput}
-          />
-          <label htmlFor="not-soon">Not Soon</label>
-          <br />
-        </fieldset>
-        <br />
-        <input type="submit" value="Add Item" className="input-1" />
-      </form>
-    </div>
+    <Box bg="brand.600">
+      <Center textStyle="roundedCorners">
+        <Text textStyle="h2" orientation="horizonal">
+          Add Your Items!
+        </Text>
+      </Center>
+      <Center bg="white">
+        <form onSubmit={handleSubmit}>
+          <Box my={10}>
+            <FormLabel textAlign="center" htmlFor="item-name">
+              {' '}
+              Item Name:
+            </FormLabel>
+            <Input
+              variant="flushed"
+              textAlign="center"
+              className={errorMessage ? 'error' : ''}
+              type="text"
+              placeholder="Add your item here"
+              name="itemName"
+              value={formData.itemName}
+              onChange={updateInput}
+            />
+            {errorMessage ? <p className="error">{errorMessage}</p> : null}
+          </Box>
+          <Box my={10} p={4}>
+            <FormLabel textAlign="center">Time Frame</FormLabel>
+            <FormControl
+              border="2px"
+              borderColor="gray.200"
+              borderRadius="lg"
+              as="fieldset"
+              p="24px"
+            >
+              <FormLabel htmlFor="lastEstimate">
+                {' '}
+                How soon will you buy this again?
+              </FormLabel>
+              <RadioGroup defaultValue="1">
+                <Stack spacing={5}>
+                  <Radio
+                    id="soon"
+                    name="lastEstimate"
+                    checked={formData.lastEstimate == 7}
+                    value="7"
+                    onChange={updateInput}
+                  >
+                    Soon
+                  </Radio>
+                  <Radio
+                    id="kinda-soon"
+                    name="lastEstimate"
+                    value="14"
+                    checked={formData.lastEstimate == 14}
+                    onChange={updateInput}
+                  >
+                    Kinda Soon
+                  </Radio>
+                  <Radio
+                    id="not-soon"
+                    name="lastEstimate"
+                    value="30"
+                    checked={formData.lastEstimate == 30}
+                    onChange={updateInput}
+                  >
+                    Not Soon
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+            </FormControl>
+          </Box>
+          <Center>
+            <Button type="submit" value="Add Item">
+              Add Item
+            </Button>
+          </Center>
+        </form>
+      </Center>
+    </Box>
   );
 };
 
