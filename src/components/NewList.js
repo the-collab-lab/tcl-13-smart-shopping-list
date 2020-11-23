@@ -22,7 +22,10 @@ export default function NewList() {
 
   return (
     <Box textAlign="center">
-      <Text htmlFor="newListName"> Enter New List Name</Text>
+      <Text my={10} htmlFor="newListName">
+        {' '}
+        Enter New List Name
+      </Text>
       <Input
         id="newListName"
         placeholder="List Name Here"
