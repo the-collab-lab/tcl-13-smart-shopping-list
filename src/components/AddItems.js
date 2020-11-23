@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { ListContext } from '../context/ListContext';
 import {
-  Link,
   Button,
   Box,
   Text,
   FormControl,
   FormLabel,
   Input,
-  VisuallyHidden,
   Alert,
   AlertDescription,
   AlertIcon,
@@ -17,7 +15,6 @@ import {
   Stack,
   Radio,
   RadioGroup,
-  Vstack,
 } from '@chakra-ui/react';
 
 const AddItems = () => {
@@ -123,6 +120,7 @@ const AddItems = () => {
               borderRadius="lg"
               as="fieldset"
               p="24px"
+              bgColor="gray.200"
             >
               <FormLabel htmlFor="lastEstimate">
                 {' '}

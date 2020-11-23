@@ -8,15 +8,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
   return (
     <div>
-      {/*Show the component only when the user is logged in
-            // Otherwise, redirect the user to /signin page*/}
+      {/*Show the component only when the user is logged in 
+      otherwise, redirect the user to /signin page*/}
+      <Nav />
       <Route
         {...rest}
         render={(props) =>
           listContext.token ? <Component {...props} /> : <Redirect to="/" />
         }
       />
-      <Nav />
     </div>
   );
 };

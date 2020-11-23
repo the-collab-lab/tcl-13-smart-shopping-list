@@ -1,33 +1,33 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-import './Nav.css';
+import { AddIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { IconButton, Box } from '@chakra-ui/react';
 
 const Nav = () => {
   return (
     <div>
-      <nav>
-        <div>
-          <NavLink
-            to="/view-list"
-            activeStyle={{
-              fontWeight: 'bold',
-            }}
-          >
-            View List
+      <Box textAlign="right">
+        <nav>
+          <NavLink to={'/add-items'}>
+            <IconButton
+              variant="outline"
+              colorScheme="cyan"
+              aria-label="back arrow, return to list view"
+              fontSize="20px"
+              icon={<AddIcon />}
+            ></IconButton>
           </NavLink>
-        </div>
-        <div>
-          <NavLink
-            to="/add-items"
-            activeStyle={{
-              fontWeight: 'bold',
-            }}
-          >
-            Add Items
+          <NavLink to={'/view-list'}>
+            <IconButton
+              variant="outline"
+              colorScheme="cyan"
+              aria-label="back arrow, return to list view"
+              fontSize="20px"
+              icon={<HamburgerIcon />}
+            ></IconButton>
           </NavLink>
-        </div>
-      </nav>
+        </nav>
+      </Box>
     </div>
   );
 };
