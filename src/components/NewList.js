@@ -15,9 +15,9 @@ export default function NewList() {
     // Sending the token variable to local storage for use
     localStorage.setItem('tcl13-token', token);
     currentList.updateToken();
-    setListName(listName);
   };
 
+  //TODO: save to db & then context for rendering in view list
   const handleChange = (event) => setListName(event.target.value);
 
   return (
@@ -35,10 +35,7 @@ export default function NewList() {
         p={4}
       />
       <Button onClick={newList} py="5px">
-        <Link to="/view-list">
-          {/* <Link to={{ pathname: '/view-list', state: { listName: listName } }}> */}
-          Save New List
-        </Link>
+        <Link to="/view-list">Save New List</Link>
       </Button>
     </Box>
   );
