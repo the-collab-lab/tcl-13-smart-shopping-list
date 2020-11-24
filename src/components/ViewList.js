@@ -10,7 +10,10 @@ import {
   VisuallyHidden,
   FormLabel,
   Link,
+  List,
+  ListItem,
   IconButton,
+  UnorderedList,
 } from '@chakra-ui/react';
 import { CloseIcon, AddIcon } from '@chakra-ui/icons';
 import './ViewList.css';
@@ -153,42 +156,60 @@ const ViewList = () => {
           onClick={handleClearClick}
         />
 
-        <ul>
+        <UnorderedList listStyleType="none">
           {currentList.userList.length > 0 ? (
             filteredList.map((element) => (
-              <li
+              <ListItem
                 style={{ margin: '10px', padding: '5px' }}
                 key={element.id}
-                className={element.textEstimate}
                 aria-label={`${element.itemName} needs to be purchased ${element.textEstimate}`}
+                display="flex"
               >
-                <input
-                  type="checkbox"
-                  name={element.itemName}
-                  id={element.id}
-                  value={element.itemName}
-                  className="purchased"
-                  onChange={handleCheck}
-                  checked={element.isPurchased}
-                ></input>{' '}
-                {element.itemName}
-                <Button
-                  onClick={handleDelete}
-                  id={element.id}
-                  textStyle="itemButton"
-                  type="submit"
+                {/* Colored Tab */}
+                <Box
+                  className={element.textEstimate}
+                  width="30px"
+                  borderRadius="15px 0 0 15px"
+                  marginRight="10px"
+                  boxShadow=" -3px 4px 6px lightGrey"
+                ></Box>
+                {/* Grey Tab */}
+                <Box
+                  bg="brand.75"
+                  borderRadius="0 15px 15px 0"
+                  padding="10px"
+                  boxShadow=" -3px 4px 6px lightGrey"
                 >
-                  Delete
-                </Button>
-                <Button textStyle="itemButton">
-                  <Link as={RouterLink} to={`/item/${element.id}`}>
-                    Details
-                  </Link>
-                </Button>
-              </li>
+                  <input
+                    type="checkbox"
+                    name={element.itemName}
+                    id={element.id}
+                    value={element.itemName}
+                    className="purchased"
+                    onChange={handleCheck}
+                    checked={element.isPurchased}
+                  ></input>{' '}
+                  {element.itemName}
+                  <Box>
+                    <Button
+                      onClick={handleDelete}
+                      id={element.id}
+                      textStyle="itemButton"
+                      type="submit"
+                    >
+                      Delete
+                    </Button>
+                    <Button textStyle="itemButton">
+                      <Link as={RouterLink} to={`/item/${element.id}`}>
+                        Details
+                      </Link>
+                    </Button>
+                  </Box>
+                </Box>
+              </ListItem>
             ))
           ) : (
-            <li>
+            <ListItem>
               <Text mt="4%" mb="5%">
                 {' '}
                 You don't have any items
@@ -196,9 +217,9 @@ const ViewList = () => {
               <Link as={RouterLink} to="/add-items" textStyle="fakeButton">
                 Add your first item!
               </Link>
-            </li>
+            </ListItem>
           )}
-        </ul>
+        </UnorderedList>
       </Box>
     </Box>
   );

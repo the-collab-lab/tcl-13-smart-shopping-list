@@ -62,13 +62,14 @@ const smartListTheme = extendTheme({
       },
     },
     itemButton: {
-      fontWeight: 'semiBold',
+      fontWeight: 'medium',
       fontFamily: 'Montserrat',
       bg: 'brand.50',
       borderRadius: 'xl',
       color: 'black',
       fontSize: 'sm',
       padding: '0px 10px',
+      margin: '5px',
       _hover: {
         textDecoration: 'none',
         bg: 'brand.900',
