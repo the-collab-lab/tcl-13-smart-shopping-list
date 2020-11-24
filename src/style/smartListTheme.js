@@ -7,6 +7,8 @@ const smartListTheme = extendTheme({
   //app custom color references
   colors: {
     brand: {
+      50: '#F7FAFC',
+      75: '#E2E8F0',
       100: '#FFFFFF',
       300: '#76E4F7',
       400: '#E53E3E',
@@ -34,6 +36,12 @@ const smartListTheme = extendTheme({
       height: '15vh',
       paddingTop: '3.75vh',
     },
+    h2: {
+      pt: '3%',
+      pb: '1%',
+      fontSize: '2xl',
+      fontWeight: 'medium',
+    },
     roundedCorners: {
       borderTopRadius: '3.5rem',
       background: 'brand.100',
@@ -50,6 +58,33 @@ const smartListTheme = extendTheme({
       marginTop: '3%',
       marginBottom: '10px',
       _hover: {
+        bg: 'brand.900',
+      },
+    },
+    itemButton: {
+      fontWeight: 'semiBold',
+      fontFamily: 'Montserrat',
+      bg: 'brand.50',
+      borderRadius: 'xl',
+      color: 'black',
+      fontSize: 'sm',
+      padding: '0px 10px',
+      _hover: {
+        textDecoration: 'none',
+        bg: 'brand.900',
+      },
+    },
+    fakeButton: {
+      fontWeight: 'semiBold',
+      fontFamily: 'Montserrat',
+      bg: 'brand.600',
+      borderRadius: '3xl',
+      color: 'brand.100',
+      type: 'submit',
+      fontSize: '2xl',
+      padding: '5px 15px',
+      _hover: {
+        textDecoration: 'none',
         bg: 'brand.900',
       },
     },

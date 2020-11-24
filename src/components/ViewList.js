@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/ListContext';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
 import {
   Button,
@@ -9,9 +9,10 @@ import {
   Input,
   VisuallyHidden,
   FormLabel,
+  Link,
   IconButton,
 } from '@chakra-ui/react';
-import { CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon, AddIcon } from '@chakra-ui/icons';
 import './ViewList.css';
 
 const ViewList = () => {
@@ -174,27 +175,27 @@ const ViewList = () => {
                 <Button
                   onClick={handleDelete}
                   id={element.id}
-                  fontSize="l"
-                  padding="10px"
-                  margin="0px 5px"
-                  borderRadius="10px"
+                  textStyle="itemButton"
+                  type="submit"
                 >
                   Delete
                 </Button>
-                <Button
-                  fontSize="l"
-                  padding="10px"
-                  margin="0px 5px"
-                  borderRadius="10px"
-                >
-                  <Link to={`/item/${element.id}`}>Details</Link>
+                <Button textStyle="itemButton">
+                  <Link as={RouterLink} to={`/item/${element.id}`}>
+                    Details
+                  </Link>
                 </Button>
               </li>
             ))
           ) : (
             <li>
-              <p> You don't have any items</p>
-              <Link to="/add-items">Add your first item!</Link>
+              <Text mt="4%" mb="5%">
+                {' '}
+                You don't have any items
+              </Text>
+              <Link as={RouterLink} to="/add-items" textStyle="fakeButton">
+                Add your first item!
+              </Link>
             </li>
           )}
         </ul>
