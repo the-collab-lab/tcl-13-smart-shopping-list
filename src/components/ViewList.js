@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link as RouterLink } from 'react-router-dom';
 import calculateEstimate from '../lib/estimates';
@@ -15,11 +15,20 @@ import {
   SimpleGrid,
   IconButton,
   UnorderedList,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from '@chakra-ui/react';
-import { CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { CloseIcon } from '@chakra-ui/icons';
 import './ViewList.css';
 
 const ViewList = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = useRef();
   // If the list is empty, add a prompt and link to Add Items
   let currentList = useContext(ListContext);
 
@@ -103,17 +112,15 @@ const ViewList = () => {
 
   const handleDelete = (e) => {
     //if you confirm the delete dialogue than it will delete from the db
-    if (window.confirm('Would you like to delete your item?') == true) {
-      currentList.itemsRef
-        .doc(e.target.id)
-        .delete()
-        .then(function () {
-          console.log('Document successfully deleted!');
-        })
-        .catch(function (error) {
-          console.error('Error removing document: ', error);
-        });
-    }
+    currentList.itemsRef
+      .doc(e.target.id)
+      .delete()
+      .then(function () {
+        console.log('Document successfully deleted!');
+      })
+      .catch(function (error) {
+        console.error('Error removing document: ', error);
+      });
   };
 
   useEffect(() => {
@@ -194,8 +201,42 @@ const ViewList = () => {
                     ></input>{' '}
                     {element.itemName}
                     <Box>
+                      {/* Delete Alert Dialog */}
+                      <AlertDialog
+                        isOpen={isOpen}
+                        leastDestructiveRef={cancelRef}
+                        onClose={onClose}
+                      >
+                        <AlertDialogOverlay>
+                          <AlertDialogContent>
+                            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                              Delete Item
+                            </AlertDialogHeader>
+
+                            <AlertDialogBody>
+                              Are you sure? You can't undo this action
+                              afterwards.
+                            </AlertDialogBody>
+
+                            <AlertDialogFooter>
+                              <Button ref={cancelRef} onClick={onClose}>
+                                Cancel
+                              </Button>
+                              <Button
+                                colorScheme="red"
+                                onClick={handleDelete}
+                                ml={3}
+                                id={element.id}
+                              >
+                                Delete
+                              </Button>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialogOverlay>
+                      </AlertDialog>
+
                       <Button
-                        onClick={handleDelete}
+                        onClick={() => setIsOpen(true)}
                         id={element.id}
                         textStyle="itemButton"
                         type="submit"
