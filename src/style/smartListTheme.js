@@ -31,8 +31,7 @@ const smartListTheme = extendTheme({
       background: 'brand.600',
       width: '100%',
       textAlign: 'center',
-      height: '15vh',
-      paddingTop: '3.75vh',
+      py: '3.75vh',
     },
     h2: {
       fontSize: '24px',
