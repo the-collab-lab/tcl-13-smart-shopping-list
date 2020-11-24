@@ -5,6 +5,7 @@ import calculateEstimate from '../lib/estimates';
 import {
   Button,
   Box,
+  Checkbox,
   Text,
   Input,
   VisuallyHidden,
@@ -190,16 +191,28 @@ const ViewList = () => {
                     padding="10px"
                     boxShadow=" -3px 4px 6px lightGrey"
                   >
-                    <input
-                      type="checkbox"
-                      name={element.itemName}
-                      id={element.id}
-                      value={element.itemName}
-                      className="purchased"
-                      onChange={handleCheck}
-                      checked={element.isPurchased}
-                    ></input>{' '}
-                    {element.itemName}
+                    <Box
+                      display="flex"
+                      justifyContent="space-around"
+                      alignItems="center"
+                      my="5px"
+                    >
+                      <input
+                        transform="scale(5)"
+                        border="grey"
+                        iconColor="brand.600"
+                        colorScheme="brand.600"
+                        size="lg"
+                        type="checkbox"
+                        name={element.itemName}
+                        id={element.id}
+                        value={element.itemName}
+                        className="purchased"
+                        onChange={handleCheck}
+                        checked={element.isPurchased}
+                      ></input>{' '}
+                      <Text>{element.itemName}</Text>
+                    </Box>
                     <Box>
                       {/* Delete Alert Dialog */}
                       <AlertDialog
