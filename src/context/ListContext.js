@@ -1,18 +1,19 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { db } from '../lib/firebase';
+import getToken from '../lib/tokens';
 
 export const ListContext = createContext();
 
 const ListContextProvider = (props) => {
   const [token, setToken] = useState(null);
-  const [listName, setListname] = useState(null);
+  const [listName, setListName] = useState(null);
   const [userList, setUserList] = useState([]);
 
-  //references to database collections
+  //DATABASE COLLECTIONS
   const itemsRef = db.collection('items');
   const listNamesRef = db.collection('listNames');
 
-  // updates context token on every re-render
+  // sets token to context on first render
   useEffect(() => {
     updateToken();
   }, []);
@@ -21,6 +22,30 @@ const ListContextProvider = (props) => {
   const updateToken = () => {
     const tempToken = localStorage.getItem('tcl13-token');
     setToken(tempToken);
+  };
+
+  // NEW LIST
+  // generate token, set to local storage, set to context state
+  // save new list name to database, save to context state
+  const generateNewList = (enteredName) => {
+    // generate token
+    const token = getToken();
+    // item to be stored
+    const newList = {
+      userToken: token,
+      listName: enteredName,
+    };
+    //add to db, set to context
+    listNamesRef
+      .add(newList)
+      .then(function () {
+        localStorage.setItem('tcl13-token', token);
+        setToken(token);
+        setListName(enteredName);
+      })
+      .catch(function (error) {
+        console.error('error adding item to the database!', error);
+      });
   };
 
   // function to calculate if items have been purchased in last x number of days
@@ -84,7 +109,7 @@ const ListContextProvider = (props) => {
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
-            setListname(doc.data().listName);
+            setListName(doc.data().listName);
           });
         })
         .catch(function (error) {
@@ -131,7 +156,14 @@ const ListContextProvider = (props) => {
 
   return (
     <ListContext.Provider
-      value={{ userList, listName, token, itemsRef, updateToken }}
+      value={{
+        userList,
+        listName,
+        token,
+        itemsRef,
+        updateToken,
+        generateNewList,
+      }}
     >
       {props.children}
     </ListContext.Provider>
