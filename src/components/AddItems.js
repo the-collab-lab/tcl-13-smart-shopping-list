@@ -87,7 +87,7 @@ const AddItems = () => {
       <Center bg="white">
         <form onSubmit={handleSubmit}>
           <Box my={10}>
-            <FormLabel textAlign="center" htmlFor="item-name">
+            <FormLabel textAlign="center" fontSize="20px" htmlFor="item-name">
               {' '}
               Item Name:
             </FormLabel>
@@ -112,7 +112,9 @@ const AddItems = () => {
             ) : null}
           </Box>
           <Box my={10} p={4}>
-            <FormLabel textAlign="center">Time Frame</FormLabel>
+            <FormLabel textAlign="center" fontSize="20px">
+              Time Frame
+            </FormLabel>
             <FormControl
               border="2px"
               borderColor="gray.200"
