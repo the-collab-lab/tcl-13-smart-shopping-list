@@ -5,10 +5,12 @@ export const ListContext = createContext();
 
 const ListContextProvider = (props) => {
   const [token, setToken] = useState(null);
+  const [listName, setListname] = useState(null);
   const [userList, setUserList] = useState([]);
 
-  //references the doc we are updating and changing
+  //references to database collections
   const itemsRef = db.collection('items');
+  const listNamesRef = db.collection('listNames');
 
   // updates context token on every re-render
   useEffect(() => {
@@ -76,6 +78,19 @@ const ListContextProvider = (props) => {
 
   useEffect(() => {
     if (token != null) {
+      //retrieve list name and set to context state
+      listNamesRef
+        .where('userToken', '==', token)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            setListname(doc.data().listName);
+          });
+        })
+        .catch(function (error) {
+          console.log('Error getting cached document:', error);
+        });
+
       let unsubscribe = itemsRef.where('userToken', '==', token).onSnapshot(
         (querySnapshot) => {
           let tempItems = [];
@@ -115,7 +130,9 @@ const ListContextProvider = (props) => {
   }, [token]);
 
   return (
-    <ListContext.Provider value={{ userList, token, itemsRef, updateToken }}>
+    <ListContext.Provider
+      value={{ userList, listName, token, itemsRef, updateToken }}
+    >
       {props.children}
     </ListContext.Provider>
   );
