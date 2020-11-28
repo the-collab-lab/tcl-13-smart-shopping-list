@@ -119,10 +119,18 @@ const smartListTheme = extendTheme({
         flushed: {
           borderBottom: '1px black solid',
           textAlign: 'center',
+          bg: 'black',
+          _focus: {
+            borderColor: 'red',
+          },
         },
         filled: {
           bg: 'brand.600',
-          color: 'brand.100',
+          color: 'red',
+        },
+        shayne: {
+          color: 'red',
+          bg: 'black',
         },
         searchBox: {
           bg: 'brand.600',

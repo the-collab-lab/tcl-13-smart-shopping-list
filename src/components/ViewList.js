@@ -25,6 +25,7 @@ import {
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import './ViewList.css';
+import { jsx } from '@emotion/react';
 
 const ViewList = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -144,11 +145,16 @@ const ViewList = () => {
           <FormLabel htmlFor="search">Search</FormLabel>
         </VisuallyHidden>
         <Input
-          // variant="filled"
           bgImage="linear-gradient(to right, #00A3C4, #76E4F7)"
+          css={{
+            '::placeholder': {
+              color: 'white',
+            },
+          }}
+          bg="red"
           w="30%"
           borderRadius="20px"
-          border="none"
+          border="red"
           type="search"
           name="search"
           id="search"
@@ -197,12 +203,13 @@ const ViewList = () => {
                       alignItems="center"
                       my="5px"
                     >
-                      <input
-                        transform="scale(5)"
+                      <Checkbox
                         border="grey"
-                        iconColor="brand.600"
+                        bg="grey"
+                        borderRadius="5px"
+                        iconColor="white"
                         colorScheme="brand.600"
-                        size="lg"
+                        size="md"
                         type="checkbox"
                         name={element.itemName}
                         id={element.id}
@@ -210,7 +217,7 @@ const ViewList = () => {
                         className="purchased"
                         onChange={handleCheck}
                         checked={element.isPurchased}
-                      ></input>{' '}
+                      ></Checkbox>{' '}
                       <Text>{element.itemName}</Text>
                     </Box>
                     <Box>
