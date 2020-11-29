@@ -90,17 +90,18 @@ const AddItems = () => {
             <FormLabel textAlign="center" fontSize="20px" htmlFor="item-name">
               {' '}
               Item Name:
+              <Input
+                variant="flushed"
+                textAlign="center"
+                className={errorMessage ? 'error' : ''}
+                type="text"
+                placeholder="Add your item here"
+                name="itemName"
+                value={formData.itemName}
+                onChange={updateInput}
+              />
             </FormLabel>
-            <Input
-              variant="flushed"
-              textAlign="center"
-              className={errorMessage ? 'error' : ''}
-              type="text"
-              placeholder="Add your item here"
-              name="itemName"
-              value={formData.itemName}
-              onChange={updateInput}
-            />
+
             {errorMessage ? (
               <Center>
                 <Alert status="error">
