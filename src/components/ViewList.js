@@ -145,13 +145,14 @@ const ViewList = () => {
           <FormLabel htmlFor="search">Search</FormLabel>
         </VisuallyHidden>
         <Input
-          bgImage="linear-gradient(to right, #00A3C4, #76E4F7)"
+          // bgImage="linear-gradient(to right, #00A3C4, #76E4F7)"
+          bg="brand.75"
           css={{
             '::placeholder': {
-              color: 'white',
+              color: 'black',
+              textAlign: 'center',
             },
           }}
-          bg="red"
           w="30%"
           borderRadius="20px"
           border="red"
@@ -162,11 +163,14 @@ const ViewList = () => {
           aria-label="Search your list"
           value={filterValue}
           onChange={handleSearchChange}
+          marginBottom="40px"
         />
 
         <IconButton
           colorScheme="blue"
           aria-label="clear search bar"
+          size="xs"
+          marginX="10px"
           icon={<CloseIcon />}
           onClick={handleClearClick}
         />
