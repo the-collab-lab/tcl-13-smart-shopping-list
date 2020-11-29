@@ -1,26 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ListContext } from '../context/ListContext';
 import { Link } from 'react-router-dom';
-import getToken from '../lib/tokens';
+import { Input, Button, Text, Box, VStack } from '@chakra-ui/react';
 
 export default function NewList() {
   let currentList = useContext(ListContext);
 
-  const newList = () => {
-    // Saving randomly generated token to a variable
-    const token = getToken();
-    // Sending the token variable to local storage for use
-    localStorage.setItem('tcl13-token', token);
-    currentList.updateToken();
-  };
+  const [listName, setListName] = useState('');
+
+  // CONTEXT FUCTION
+  // generates random token, sets to local storage, updates context with token
+  // saves list name to database, updates context with list name
+  const newList = currentList.generateNewList;
+
+  const handleChange = (event) => setListName(event.target.value);
 
   return (
-    <div>
-      <label htmlFor="newListName"> Enter New List Name</label>
-      <input id="newListName" placeholder="List Name Here" type="text"></input>
-      <button onClick={newList}>
-        <Link to="/view-list">Save New List</Link>
-      </button>
-    </div>
+    <Box textAlign="center" bg="brand.600">
+      <VStack textStyle="roundedCorners">
+        <Text py={10} htmlFor="newListName">
+          {' '}
+          Enter New List Name
+        </Text>
+        <Input
+          id="newListName"
+          placeholder="List Name Here"
+          w="30%"
+          type="text"
+          value={listName}
+          onChange={handleChange}
+          variant="flushed"
+          textAlign="center"
+          my={10}
+          p={4}
+        />
+        <Button onClick={() => newList(listName)} py="5px">
+          <Link to="/view-list">Save New List</Link>
+        </Button>
+      </VStack>
+    </Box>
   );
 }

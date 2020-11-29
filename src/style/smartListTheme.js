@@ -14,6 +14,11 @@ const smartListTheme = extendTheme({
       900: '#065666',
     },
   },
+  fonts: {
+    body: 'Montserrat',
+    heading: 'Montserrat',
+    mono: 'Montserrat',
+  },
   fontWeights: {
     normal: 400,
     medium: 500,
@@ -31,7 +36,14 @@ const smartListTheme = extendTheme({
       background: 'brand.600',
       width: '100%',
       textAlign: 'center',
-      height: '15vh',
+      py: '3.75vh',
+    },
+    h2: {
+      fontSize: '24px',
+      color: 'gray.900',
+      fontFamily: 'Montserrat',
+      width: '100%',
+      textAlign: 'center',
       paddingTop: '3.75vh',
     },
     roundedCorners: {
