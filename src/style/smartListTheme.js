@@ -7,9 +7,11 @@ const smartListTheme = extendTheme({
   //app custom color references
   colors: {
     brand: {
+      50: '#F7FAFC',
+      75: '#E2E8F0',
       100: '#FFFFFF',
-      400: '#E53E3E',
       300: '#76E4F7',
+      400: '#E53E3E',
       600: '#00A3C4',
       900: '#065666',
     },
@@ -33,7 +35,7 @@ const smartListTheme = extendTheme({
       lineHeight: '110%',
       letterSpacing: '-2%',
       fontFamily: 'Montserrat',
-      background: 'brand.600',
+      bgImage: 'linear-gradient(to bottom,#76E4F7, #00A3C4)',
       width: '100%',
       textAlign: 'center',
       py: '3.75vh',
@@ -45,6 +47,12 @@ const smartListTheme = extendTheme({
       width: '100%',
       textAlign: 'center',
       paddingTop: '3.75vh',
+    },
+    h2: {
+      pt: '3%',
+      pb: '1%',
+      fontSize: '2xl',
+      fontWeight: 'medium',
     },
     roundedCorners: {
       borderTopRadius: '3.5rem',
@@ -62,6 +70,34 @@ const smartListTheme = extendTheme({
       marginTop: '3%',
       marginBottom: '10px',
       _hover: {
+        bg: 'brand.900',
+      },
+    },
+    itemButton: {
+      fontWeight: 'medium',
+      fontFamily: 'Montserrat',
+      bg: 'brand.50',
+      borderRadius: 'xl',
+      color: 'black',
+      fontSize: 'sm',
+      padding: '0px 10px',
+      margin: '5px',
+      _hover: {
+        textDecoration: 'none',
+        bg: 'brand.900',
+      },
+    },
+    fakeButton: {
+      fontWeight: 'semiBold',
+      fontFamily: 'Montserrat',
+      bg: 'brand.600',
+      borderRadius: '3xl',
+      color: 'brand.100',
+      type: 'submit',
+      fontSize: '2xl',
+      padding: '5px 15px',
+      _hover: {
+        textDecoration: 'none',
         bg: 'brand.900',
       },
     },
@@ -95,10 +131,23 @@ const smartListTheme = extendTheme({
         flushed: {
           borderBottom: '1px black solid',
           textAlign: 'center',
+          bg: 'black',
+          _focus: {
+            borderColor: 'red',
+          },
         },
         filled: {
           bg: 'brand.600',
+          color: 'red',
+        },
+        shayne: {
+          color: 'red',
+          bg: 'black',
+        },
+        searchBox: {
+          bg: 'brand.600',
           color: 'brand.100',
+          borderRadius: '3xl',
         },
       },
     },
