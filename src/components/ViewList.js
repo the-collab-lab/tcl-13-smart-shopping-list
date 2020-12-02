@@ -32,13 +32,17 @@ import { jsx } from '@emotion/react';
 
 const ViewList = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const onClose = () => setIsOpen(false);
+  const onClose = () => {
+    setIsOpen(false);
+    setItemToDelete(null);
+  };
   const cancelRef = useRef();
 
   let currentList = useContext(ListContext);
 
   const [filterValue, setFilterValue] = useState('');
   const [filteredList, setFilteredList] = useState([]);
+  const [itemToDelete, setItemToDelete] = useState();
 
   const handleCheck = async (e) => {
     const timeNow = new Date().getTime() / 1000;
@@ -115,10 +119,16 @@ const ViewList = () => {
     setFilterValue(e.target.value);
   };
 
+  const handleAlert = (id) => {
+    setItemToDelete(id);
+    setIsOpen(true);
+  };
+
   const handleDelete = (id) => {
     //if you confirm the delete dialogue than it will delete from the db
+    console.log(itemToDelete);
     currentList.itemsRef
-      .doc(id)
+      .doc(itemToDelete)
       .delete()
       .then(function () {
         console.log('Document successfully deleted!');
@@ -126,7 +136,7 @@ const ViewList = () => {
       .catch(function (error) {
         console.error('Error removing document: ', error);
       });
-    // onClose()
+    onClose();
   };
 
   useEffect(() => {
@@ -260,7 +270,6 @@ const ViewList = () => {
                                   handleDelete(element.id);
                                 }}
                                 ml={3}
-                                id={element.id}
                               >
                                 Delete
                               </Button>
@@ -270,7 +279,7 @@ const ViewList = () => {
                       </AlertDialog>
 
                       <Button
-                        onClick={() => setIsOpen(true)}
+                        onClick={() => handleAlert(element.id)}
                         id={element.id}
                         textStyle="itemButton"
                         type="submit"

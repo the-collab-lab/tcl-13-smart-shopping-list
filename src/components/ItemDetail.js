@@ -41,7 +41,7 @@ export default function ItemDetail() {
           {currentItem.itemName}
         </Text>
         <Center>
-          <SimpleGrid columns={1} spacing={10} w="50%">
+          <SimpleGrid columns={2} spacing={10} w="50%">
             <Box bg="gray.200" p={8} rounded="xl">
               Days Since Last Purchased: {timeSinceLastPurchase}
             </Box>
