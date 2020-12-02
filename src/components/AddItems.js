@@ -1,9 +1,26 @@
 import React, { useState, useContext } from 'react';
 import { ListContext } from '../context/ListContext';
-import './AddItems.css';
+import {
+  Button,
+  Box,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Center,
+  Stack,
+  Radio,
+  RadioGroup,
+} from '@chakra-ui/react';
 
 const AddItems = () => {
   const listContext = useContext(ListContext);
+  const itemsRef = listContext.itemsRef;
+
   const formStarter = {
     itemName: '',
     lastEstimate: 7,
@@ -14,10 +31,7 @@ const AddItems = () => {
   };
 
   const [formData, setFormData] = useState(formStarter);
-
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const itemsRef = listContext.itemsRef;
 
   // handle change of each form input, set state
   const updateInput = (e) => {
@@ -56,7 +70,6 @@ const AddItems = () => {
             console.error('error adding item to the database!', error);
           });
       } else {
-        //TODO: change error messages to just one item in state.
         setErrorMessage('This item already exists in the database!');
       }
     } else {
@@ -65,66 +78,97 @@ const AddItems = () => {
   };
 
   return (
-    <div>
-      <h1>Add Your Items!</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="label-1" htmlFor="item-name">
-          {' '}
-          Item Name:
-        </label>
-        <input
-          className={errorMessage ? 'error' : ''}
-          type="text"
-          placeholder="Add your item here"
-          name="itemName"
-          value={formData.itemName}
-          onChange={updateInput}
-        />
-        {errorMessage ? <p className="error">{errorMessage}</p> : null}
-        <br />
-        <br />
-        <fieldset className="fieldset">
-          <legend>Time Frame</legend>
-          <label htmlFor="lastEstimate">
-            {' '}
-            How soon will you buy this again?
-          </label>
-          <br />
-          <input
-            type="radio"
-            id="soon"
-            name="lastEstimate"
-            checked={formData.lastEstimate == 7}
-            value="7"
-            onChange={updateInput}
-          />
-          <label htmlFor="soon"> Soon</label>
-          <br />
-          <input
-            type="radio"
-            id="kinda-soon"
-            name="lastEstimate"
-            value="14"
-            checked={formData.lastEstimate == 14}
-            onChange={updateInput}
-          />
-          <label htmlFor="kinda-soon"> Kinda Soon</label>
-          <br />
-          <input
-            type="radio"
-            id="not-soon"
-            name="lastEstimate"
-            value="30"
-            checked={formData.lastEstimate == 30}
-            onChange={updateInput}
-          />
-          <label htmlFor="not-soon">Not Soon</label>
-          <br />
-        </fieldset>
-        <br />
-        <input type="submit" value="Add Item" className="input-1" />
-      </form>
-    </div>
+    <Box bg="brand.600">
+      <Center textStyle="roundedCorners">
+        <Text textStyle="h2" orientation="horizonal">
+          Add Your Items!
+        </Text>
+      </Center>
+      <Center bg="white">
+        <form onSubmit={handleSubmit}>
+          <Box my={10}>
+            <FormLabel textAlign="center" fontSize="20px" htmlFor="item-name">
+              {' '}
+              Item Name:
+              <Input
+                variant="flushed"
+                textAlign="center"
+                className={errorMessage ? 'error' : ''}
+                type="text"
+                placeholder="Add your item here"
+                name="itemName"
+                value={formData.itemName}
+                onChange={updateInput}
+              />
+            </FormLabel>
+
+            {errorMessage ? (
+              <Center>
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertTitle>{errorMessage}</AlertTitle>
+                  <AlertDescription>Please add a valid item.</AlertDescription>
+                </Alert>
+              </Center>
+            ) : null}
+          </Box>
+          <Box my={10} p={4}>
+            <FormLabel textAlign="center" fontSize="20px">
+              Time Frame
+            </FormLabel>
+            <FormControl
+              border="2px"
+              borderColor="gray.200"
+              borderRadius="lg"
+              as="fieldset"
+              p="24px"
+              bgColor="gray.200"
+            >
+              <FormLabel htmlFor="lastEstimate">
+                {' '}
+                How soon will you buy this again?
+              </FormLabel>
+              <RadioGroup defaultValue="7" colorScheme="cyan">
+                <Stack spacing={5}>
+                  <Radio
+                    id="soon"
+                    name="lastEstimate"
+                    checked={formData.lastEstimate === 7}
+                    value="7"
+                    onChange={updateInput}
+                  >
+                    Soon
+                  </Radio>
+                  <Radio
+                    id="kinda-soon"
+                    name="lastEstimate"
+                    value="14"
+                    checked={formData.lastEstimate === 14}
+                    onChange={updateInput}
+                  >
+                    Kinda Soon
+                  </Radio>
+                  <Radio
+                    id="not-soon"
+                    name="lastEstimate"
+                    value="30"
+                    checked={formData.lastEstimate === 30}
+                    onChange={updateInput}
+                  >
+                    Not Soon
+                  </Radio>
+                </Stack>
+              </RadioGroup>
+            </FormControl>
+          </Box>
+          <Center>
+            <Button type="submit" value="Add Item">
+              Add Item
+            </Button>
+          </Center>
+        </form>
+      </Center>
+    </Box>
   );
 };
 

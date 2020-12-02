@@ -31,7 +31,7 @@ const ViewList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef();
-  // If the list is empty, add a prompt and link to Add Items
+  
   let currentList = useContext(ListContext);
 
   const [filterValue, setFilterValue] = useState('');
