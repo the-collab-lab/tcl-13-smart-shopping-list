@@ -1,5 +1,5 @@
 .soon {
-  background-color: green;
+  background-color: orange;
 }
 
 .kind-of-soon {
@@ -7,7 +7,7 @@
 }
 
 .not-soon {
-  background-color: orange;
+  background-color: green;
 }
 
 .inactive {

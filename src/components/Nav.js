@@ -15,7 +15,7 @@ const Nav = () => {
   const listContext = useContext(ListContext);
 
   return (
-    <Flex bg="b" px={10} bg="brand.600">
+    <Flex bg="b" px={10} bgImage="linear-gradient(to bottom,#76E4F7, #0092B0)">
       <Box w="100px"></Box>
       <Spacer />
       <Box bg="green.500">
@@ -42,6 +42,7 @@ const NavIcons = () => {
           color="white"
           aria-label="add icon, takes to add items"
           fontSize="20px"
+          bg="none"
           icon={<AddIcon />}
         ></IconButton>
       </NavLink>
@@ -50,6 +51,7 @@ const NavIcons = () => {
           color="white"
           aria-label="hamburger icon, takes to list view"
           fontSize="20px"
+          bg="none"
           icon={<HamburgerIcon />}
         ></IconButton>
       </NavLink>{' '}

@@ -122,7 +122,7 @@ const AddItems = () => {
               borderRadius="lg"
               as="fieldset"
               p="24px"
-              bgColor="gray.200"
+              bgColor="white"
             >
               <FormLabel htmlFor="lastEstimate">
                 {' '}

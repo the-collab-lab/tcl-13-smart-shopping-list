@@ -8,6 +8,8 @@ import {
   Checkbox,
   Text,
   Input,
+  InputGroup,
+  InputRightAddon,
   VisuallyHidden,
   FormLabel,
   Link,
@@ -22,6 +24,7 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  Center,
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import './ViewList.css';
@@ -31,7 +34,7 @@ const ViewList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef();
-  
+
   let currentList = useContext(ListContext);
 
   const [filterValue, setFilterValue] = useState('');
@@ -112,10 +115,10 @@ const ViewList = () => {
     setFilterValue(e.target.value);
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = (id) => {
     //if you confirm the delete dialogue than it will delete from the db
     currentList.itemsRef
-      .doc(e.target.id)
+      .doc(id)
       .delete()
       .then(function () {
         console.log('Document successfully deleted!');
@@ -123,6 +126,7 @@ const ViewList = () => {
       .catch(function (error) {
         console.error('Error removing document: ', error);
       });
+    // onClose()
   };
 
   useEffect(() => {
@@ -138,47 +142,47 @@ const ViewList = () => {
   return (
     <Box bg="brand.600">
       <Box textStyle="roundedCorners">
-        <Text as="h2" textStyle="h2">
-          List Name
+        <Text as="h2" textStyle="h2" mb={10}>
+          {currentList.listName}
         </Text>
         <VisuallyHidden>
           <FormLabel htmlFor="search">Search</FormLabel>
         </VisuallyHidden>
-        <Input
-          // bgImage="linear-gradient(to right, #00A3C4, #76E4F7)"
-          bg="brand.75"
-          css={{
-            '::placeholder': {
-              color: 'black',
-              textAlign: 'center',
-            },
-          }}
-          w="30%"
-          borderRadius="20px"
-          border="red"
-          type="search"
-          name="search"
-          id="search"
-          placeholder="Search Your List"
-          aria-label="Search your list"
-          value={filterValue}
-          onChange={handleSearchChange}
-          marginBottom="40px"
-        />
-
-        <IconButton
-          colorScheme="blue"
-          aria-label="clear search bar"
-          size="xs"
-          marginX="10px"
-          icon={<CloseIcon />}
-          onClick={handleClearClick}
-        />
+        <Center>
+          <InputGroup display="flex" justifyContent="center">
+            <Input
+              bg="brand.75"
+              css={{
+                '::placeholder': {
+                  color: 'black',
+                  textAlign: 'center',
+                },
+              }}
+              w="30%"
+              borderRadius="20px"
+              border="red"
+              type="search"
+              name="search"
+              id="search"
+              placeholder="Search Your List"
+              aria-label="Search your list"
+              value={filterValue}
+              onChange={handleSearchChange}
+              marginBottom="40px"
+            />
+            <InputRightAddon
+              children="x"
+              onClick={handleClearClick}
+              cursor="pointer"
+              borderRadius="20px"
+            />
+          </InputGroup>
+        </Center>
 
         <UnorderedList listStyleType="none">
-          <SimpleGrid columns={3}>
-            {currentList.userList.length > 0 ? (
-              filteredList.map((element) => (
+          {currentList.userList.length > 0 ? (
+            <SimpleGrid columns={3}>
+              {filteredList.map((element) => (
                 <ListItem
                   style={{ margin: '10px', padding: '5px' }}
                   key={element.id}
@@ -243,12 +247,18 @@ const ViewList = () => {
                             </AlertDialogBody>
 
                             <AlertDialogFooter>
-                              <Button ref={cancelRef} onClick={onClose}>
+                              <Button
+                                ref={cancelRef}
+                                onClick={onClose}
+                                variant="outline"
+                              >
                                 Cancel
                               </Button>
                               <Button
                                 colorScheme="red"
-                                onClick={handleDelete}
+                                onClick={() => {
+                                  handleDelete(element.id);
+                                }}
                                 ml={3}
                                 id={element.id}
                               >
@@ -275,19 +285,19 @@ const ViewList = () => {
                     </Box>
                   </Box>
                 </ListItem>
-              ))
-            ) : (
-              <ListItem>
-                <Text mt="4%" mb="5%">
-                  {' '}
-                  You don't have any items
-                </Text>
-                <Link as={RouterLink} to="/add-items" textStyle="fakeButton">
-                  Add your first item!
-                </Link>
-              </ListItem>
-            )}
-          </SimpleGrid>
+              ))}
+            </SimpleGrid>
+          ) : (
+            <ListItem>
+              <Text mt="4%" mb="5%" textStyle="h2">
+                {' '}
+                You don't have any items
+              </Text>
+              <Link as={RouterLink} to="/add-items" textStyle="fakeButton">
+                Add your first item!
+              </Link>
+            </ListItem>
+          )}
         </UnorderedList>
       </Box>
     </Box>

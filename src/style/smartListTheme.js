@@ -12,7 +12,7 @@ const smartListTheme = extendTheme({
       100: '#FFFFFF',
       300: '#76E4F7',
       400: '#E53E3E',
-      600: '#00A3C4',
+      600: '#0092B0',
       900: '#065666',
     },
   },
@@ -35,7 +35,7 @@ const smartListTheme = extendTheme({
       lineHeight: '110%',
       letterSpacing: '-2%',
       fontFamily: 'Montserrat',
-      bgImage: 'linear-gradient(to bottom,#76E4F7, #00A3C4)',
+      bgImage: 'linear-gradient(to bottom,#76E4F7, #0092B0)',
       width: '100%',
       textAlign: 'center',
       py: '3.75vh',
@@ -84,6 +84,7 @@ const smartListTheme = extendTheme({
       margin: '5px',
       _hover: {
         textDecoration: 'none',
+        color: 'white',
         bg: 'brand.900',
       },
     },
@@ -113,12 +114,21 @@ const smartListTheme = extendTheme({
         color: 'brand.100',
         type: 'submit',
         fontSize: '2xl',
+        _hover: { bg: 'brand.900', color: 'white' },
       },
       variants: {
         // 4. We can override existing variants
         solid: (props) => ({
           bg: props.colorMode === 'dark' ? 'brand.600' : 'brand.600',
-          _hover: { bg: 'brand.900' },
+          _hover: { bg: 'brand.900', color: 'white' },
+          bgImage: 'linear-gradient(red.500, yellow.500)',
+          px: '35px',
+          py: '20px',
+          fontSize: '2xl',
+        }),
+        outline: (props) => ({
+          bg: props.colorMode === 'dark' ? 'brand.50' : 'brand.50',
+          _hover: { bg: 'brand.900', color: 'white' },
           bgImage: 'linear-gradient(red.500, yellow.500)',
           px: '35px',
           py: '20px',
