@@ -7,7 +7,7 @@
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
-    "firebase": "^7.22.1",
+    "firebase": "^10.5.0",
     "framer-motion": "^2.9.4",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
@@ -16,10 +16,10 @@
     "react-dom": "^16.13.1",
     "react-firestore": "^1.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -51,6 +51,9 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^4.12.1"
+    "cypress": "^13.3.2"
+  },
+  "overrides": {
+    "@svgr/webpack": "^6.2.1"
   }
 }
