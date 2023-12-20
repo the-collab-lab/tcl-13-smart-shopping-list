@@ -4,19 +4,19 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.0.0",
-    "@chakra-ui/react": "^1.0.0",
+    "@the-collab-lab/shopping-list-utils": "^2.2.0",
+    "@chakra-ui/react": "^1.8.9",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
     "firebase": "^10.5.0",
-    "framer-motion": "^2.9.4",
+    "framer-motion": "^3.0.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-firestore": "^1.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1"
+    "react-router-dom": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
@@ -52,7 +52,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "cypress": "^13.3.2"
+    "cypress": "^13.3.2",
+    "react-scripts": "^5.0.1"
   },
   "overrides": {
     "@svgr/webpack": "^6.2.1"

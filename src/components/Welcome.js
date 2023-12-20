@@ -18,6 +18,7 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 export default function Welcome() {
   const [userInputToken, setUserInputToken] = useState('');
@@ -53,7 +54,7 @@ export default function Welcome() {
   return (
     <Box bg="brand.600">
       <Box textStyle="roundedCorners">
-        <Link as={RouterLink} to="/new-list">
+        <Link as={RouterLink} to="/">
           <AddIcon textStyle="AddIcon" />
           <Text>Create New List</Text>
         </Link>
@@ -98,6 +99,7 @@ export default function Welcome() {
           </form>
         </FormControl>
       </Box>
+      <ArchivalNoticeModal />
     </Box>
   );
 }

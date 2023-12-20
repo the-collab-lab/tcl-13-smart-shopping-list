@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { db } from '../lib/firebase';
-import getToken from '../lib/tokens';
 
 export const ListContext = createContext();
 
@@ -28,24 +27,25 @@ const ListContextProvider = (props) => {
   // generate token, set to local storage, set to context state
   // save new list name to database, save to context state
   const generateNewList = (enteredName) => {
-    // generate token
-    const token = getToken();
-    // item to be stored
-    const newList = {
-      userToken: token,
-      listName: enteredName,
-    };
-    //add to db, set to context
-    listNamesRef
-      .add(newList)
-      .then(function () {
-        localStorage.setItem('tcl13-token', token);
-        setToken(token);
-        setListName(enteredName);
-      })
-      .catch(function (error) {
-        console.error('error adding item to the database!', error);
-      });
+    // // generate token
+    // const token = getToken();
+    // // item to be stored
+    // const newList = {
+    //   userToken: token,
+    //   listName: enteredName,
+    // };
+    // //add to db, set to context
+    // listNamesRef
+    //   .add(newList)
+    //   .then(function () {
+    //     localStorage.setItem('tcl13-token', token);
+    //     setToken(token);
+    //     setListName(enteredName);
+    //   })
+    //   .catch(function (error) {
+    //     console.error('error adding item to the database!', error);
+    //   });
+    console.log('Creating new lists is no longer supported');
   };
 
   // function to calculate if items have been purchased in last x number of days
@@ -152,6 +152,7 @@ const ListContextProvider = (props) => {
         unsubscribe();
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   return (
